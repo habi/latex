@@ -1,7 +1,7 @@
-latex
+LaTeX
 =====
 
-Here are some LaTeX-files I've written/copied/hacked together over the years.ls
+Here are some LaTeX-files I've written/copied/hacked together over the years.
 
   - boxplot.tex: How to draw a box plot with TikZ and pgfPlots
   - circles.tex: How to draw some circles with TikZ
