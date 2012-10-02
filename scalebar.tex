@@ -1,0 +1,42 @@
+%- Start MATLAB, load scalebar.m and start it.
+%- The script prompts you to load an image, choose “scalebarimage.jpg” you've downloaded from above.
+%- The script prompts you to define the length of the scale bar you're gonna draw in the next step, choose the default “21 cm” for now
+%- The script displays the image of my head and asks you to define a start-point of the scale-bar, choose the tip of the nose
+%- After that, choose the back of my head for the end of the scale-bar
+%- Note the “Positions” shown in the help-dialog, these are to make sure you've clicked correctly and that the positions are correct.
+%- copy the output in the command-line-section of MATLAB
+%- paste this output into your .tex-file
+%- if the .tex file and the image are in the same folder, just proceed, if not, change the path to the image!
+%- compile the file
+%- Figure 1 of the document should show the exact same scale-bar you've drawn in MATLAB overlayed over the image and a second scale bar which shows a reasonable length (5cm in our case)
+%- change \def\x{100} and \def\y{100} on lines 24 and 25 of the copied text to position the scale bar where you'd like to have it and uncomment line 29 to turn off the original scale bar.
+%- enjoy typographically correct scale bars in the resulting pdf (47 kB)
+
+\documentclass{article}
+
+\usepackage{tikz}               % makes the scalebar
+\usepackage[utf8]{inputenc}  % so i can write my name without contortions
+\usepackage{siunitx}            % typographically correct units
+\usepackage{hyperref}           % links in pdf
+
+\newlength\imagewidth           % needed for scalebars
+\newlength\imagescale           % ditto
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\author{David Haberthür}
+\title{David Haberthür's Head - Scalebar}
+\date{\today}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[h]
+	\centering
+    %%%
+    COPY MATLAB-STUFF HERE
+    %%%
+	\caption{Three dimensional visualization of David Haberthürs Head, released under a \href{http://creativecommons.org/licenses/by/2.0/deed.en_GB}{creative commons Attribution 2.0 Generic license} by the owner of the head.}
+	\label{fig:head}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

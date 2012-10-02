@@ -1,0 +1,39 @@
+\documentclass{article}
+
+% adapted from “fluffyk”s example in the LaTeX community forum: http://is.gd/cfSJai
+
+\usepackage{pgf} 
+\usepackage{pgfplots}
+\usepackage{preview}
+\usetikzlibrary{fit,calc}
+\usepgfplotslibrary{external}
+\newcommand{\boxplot}[6]{%
+	%#1: center, #2: median, #3: 1/4 quartile, #4: 3/4 quartile, #5: min, #6: max
+	\filldraw[fill=white,line width=0.2mm] let \n{boxxl}={#1-0.1}, \n{boxxr}={#1+0.1} in (axis cs:\n{boxxl},#3) rectangle (axis cs:\n{boxxr},#4);   % draw the box
+	\draw[line width=0.2mm, color=red] let \n{boxxl}={#1-0.1}, \n{boxxr}={#1+0.1} in (axis cs:\n{boxxl},#2) -- (axis cs:\n{boxxr},#2);             % median
+	\draw[line width=0.2mm] (axis cs:#1,#4) -- (axis cs:#1,#6);                                                                           % bar up
+	\draw[line width=0.2mm] let \n{whiskerl}={#1-0.025}, \n{whiskerr}={#1+0.025} in (axis cs:\n{whiskerl},#6) -- (axis cs:\n{whiskerr},#6);        % upper quartile
+	\draw[line width=0.2mm] (axis cs:#1,#3) -- (axis cs:#1,#5);                                                                           % bar down
+	\draw[line width=0.2mm] let \n{whiskerl}={#1-0.025}, \n{whiskerr}={#1+0.025} in (axis cs:\n{whiskerl},#5) -- (axis cs:\n{whiskerr},#5);        % lower quartile
+	}
+
+\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+\tikzset{external/remake next}
+\begin{tikzpicture}
+	\begin{axis}[%
+		xmin=0, xmax=6,%
+		ymin=-.01, ymax=.4,%
+		xtick={1,2,3,4,5},xticklabels={D04,D10,D21,D36,D60}%
+		]
+		%#1: center, #2: median, #3: 1/4 quartile, #4: 3/4 quartile, #5: min, #6: max
+		\boxplot{1}{.00479}{.001777}{.011400}{0.0000232}{.0209}
+		\boxplot{2}{.00828}{.004987}{.018975}{0.0005100}{.1}
+		\boxplot{3}{.03300}{.013950}{.088550}{0.0008580}{1.06}
+		\boxplot{4}{.06708}{.034778}{.135850}{0.0060770}{5.08}
+		\boxplot{5}{.06800}{.033600}{.152500}{0.0000030}{1.51}						
+	\end{axis}
+\end{tikzpicture}
+
+\end{document}

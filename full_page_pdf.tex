@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage[pdftex,active,tightpage]{preview}
+%\setlength\PreviewBorder{2mm} % use to add a border around the image
+\usepackage{tikz}
+\begin{document}
+\begin{preview}
+% use either begin-end{preview} or \PreviewEnvironment{tikzpicture} if all you want is the TikZ-picture
+\begin{tikzpicture}
+  \shade (0,0) circle(2);	% background
+  \draw (0,0) circle(2); 	% rim
+  \draw (.75,1) circle(.5);	% right eye
+  \fill (.66,.9) circle(.25);	% right pupil
+  \draw (-.75,1) circle(.5);	% left eye
+  \fill (-.66,.9) circle(.25);% left pupil
+  \fill (.2,0) circle (.1);	% right nostril
+  \fill (-.2,0) circle (.1);	% left nostril
+  \draw (-135:1) arc (-135:-45:1) -- cycle; % mouth
+  \end{tikzpicture}
+\end{preview}
+\end{document}

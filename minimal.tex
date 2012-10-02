@@ -1,0 +1,27 @@
+\documentclass[paper=a4,DIV=calc]{scrartcl}
+ 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{caption,subfig} % z.B. [font=scriptsize]
+\usepackage{siunitx}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{microtype}
+%\DisableLigatures{encoding = *, family = * }
+\usepackage{hyperref}
+ 
+\newcommand{\imsize}{.5\linewidth}
+\title{Awesome title} 
+\author{David Haberthür}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+disable ligatures with \verb+\usepackage{microtype}+ and \verb+\DisableLigatures{encoding = T1}+ $\rightarrow$ copying from pdf is easier for stuff like ``different'', since ligatures are disables
+
+\bibliographystyle{unsrtnat}
+\bibliography{../library}
+
+\end{document}

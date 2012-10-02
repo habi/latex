@@ -1,0 +1,20 @@
+\documentclass[paper=a4]{scrartcl}
+ 
+\usepackage[utf8]{inputenc} % needed for easy input of the 'ü' in my name
+\usepackage{movie15} % needed for the inclusion of the movie
+\usepackage{hyperref} % prerequisite for 'movie15'
+ 
+\title{Movie-Example}
+\author{David Haberthür}
+ 
+\begin{document}
+\maketitle
+\begin{figure}[htb]%
+\centering%
+  \includemovie[autoplay,text=movie.avi]% parameters for movie15
+  {.5\linewidth}{.5\linewidth}% height and width for display of the movie
+  {movie.avi}% actual movie-file
+\caption{Rotating vertebrae}%
+\label{mov:vertebrae}%
+\end{figure}%
+\end{document}

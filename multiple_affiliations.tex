@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{hyperref}
+\newcommand{\footremember}[2]{%
+	\footnote{#2}
+	\newcounter{#1}
+	\setcounter{#1}{\value{footnote}}%
+}
+\newcommand{\footrecall}[1]{%
+	\footnotemark[\value{#1}]%
+} 
+\title{How to bowl properly}
+\author{%
+  The Dude\footremember{alley}{Holly Star Lanes Bowling Alley}%
+  \and Walter Sobchak\footremember{trailer}{probably in a trailer park}%
+  \and Jesus Quintana\footrecall{alley} \footnote{Mexico?}%
+  \and Uli Kunkel\footrecall{trailer} \footnote{Germany?}%
+  }
+\begin{document}
+\maketitle
+The whole example is taken from \href{http://anthony.liekens.net/index.php/LaTeX/MultipleFootnoteReferences}{anthony liekens}\ldots
+\end{document}
