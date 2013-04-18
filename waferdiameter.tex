@@ -1,0 +1,22 @@
+% I used that drawing for an email to a client. Shows a small example of using
+% the 'calc' library of TikZ
+
+\documentclass{scrartcl}
+\usepackage{tikz}
+	\usetikzlibrary{calc}
+\usepackage{siunitx}
+	\DeclareSIUnit\inch{in}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\begin{document}
+\begin{tikzpicture}[ultra thick]
+	\draw [fill=lightgray] (0,0) circle (8);
+	\newcommand\Square[1]{+(-#1,-#1) rectangle +(#1,#1)} % hat tip to http://tex.stackexchange.com/a/58930/828
+	\draw [fill=white!60!black,draw=black] (0,0) \Square{{4*sqrt(2)}};
+	\def\angle{60}
+	\draw [<->,rotate=\angle] (0,0) -- (0,8) node [midway,above,sloped,rotate=\angle+180] {\(r_{w}=\SI{4}{\inch}=\SI{10.16}{\centi\meter}\)};
+	\def\sidelength{5.66}
+	\def\height{-4*0.68}
+	\draw [<->] (-\sidelength,\height) -- (\sidelength,\height) node [midway, above] {\(l_{sq}=r_{w}\sqrt{2}=\SI{\sidelength}{\inch}=\SI{14.37}{\centi\meter}\)};
+\end{tikzpicture}
+\end{document}
