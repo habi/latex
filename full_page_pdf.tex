@@ -1,10 +1,15 @@
+% Use the preview package to generate "full-page" images, i.e. crop to the
+% relevant parts of the figure
+
 \documentclass{article}
 \usepackage[pdftex,active,tightpage]{preview}
 %\setlength\PreviewBorder{2mm} % use to add a border around the image
 \usepackage{tikz}
 \begin{document}
 \begin{preview}
-% use either begin-end{preview} or \PreviewEnvironment{tikzpicture} if all you want is the TikZ-picture
+% Put everything you want inbetween \begin{preview} and \end{preview} or use
+% \PreviewEnvironment{tikzpicture} in the preamble to only have the TikZ-
+% picture in the output
 \begin{tikzpicture}
   \shade (0,0) circle(2);	% background
   \draw (0,0) circle(2); 	% rim

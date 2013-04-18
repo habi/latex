@@ -1,16 +1,31 @@
+% This document can be used to put scalebars on figures. without doing any
+% calculations. Needs 'scalebar.m' (and MATLAB) and 'scalebarimage.jpg', which
+% are also my the latex-repository on Github
+
 %- Start MATLAB, load scalebar.m and start it.
-%- The script prompts you to load an image, choose “scalebarimage.jpg” you've downloaded from above.
-%- The script prompts you to define the length of the scale bar you're gonna draw in the next step, choose the default “21 cm” for now
-%- The script displays the image of my head and asks you to define a start-point of the scale-bar, choose the tip of the nose
+%- The script prompts you to load an image, choose “scalebarimage.jpg” you've
+%  downloaded from above.
+%- The script prompts you to define the length of the scale bar you are going
+%  to draw in the next step, choose the default “21 cm” for now
+%- The script displays the image of my head and asks you to define a starting
+%  point of the scale-bar, choose the tip of the nose
 %- After that, choose the back of my head for the end of the scale-bar
-%- Note the “Positions” shown in the help-dialog, these are to make sure you've clicked correctly and that the positions are correct.
+%- Note the “Positions” shown in the help-dialog, these are to make sure you
+%  clicked correctly and that the positions are correct.
 %- copy the output in the command-line-section of MATLAB
 %- paste this output into your .tex-file
-%- if the .tex file and the image are in the same folder, just proceed, if not, change the path to the image!
+%- if the .tex file and the image are in the same folder, just proceed, if not,
+%  change the path to the image!
 %- compile the file
-%- Figure 1 of the document should show the exact same scale-bar you've drawn in MATLAB overlayed over the image and a second scale bar which shows a reasonable length (5cm in our case)
-%- change \def\x{100} and \def\y{100} on lines 24 and 25 of the copied text to position the scale bar where you'd like to have it and uncomment line 29 to turn off the original scale bar.
-%- enjoy typographically correct scale bars in the resulting pdf (47 kB)
+% 
+% Figure 1 of the document should show the exact same scale-bar you've drawn in
+% MATLAB overlayed over the image and a second scale bar which shows a
+% reasonable length (5cm in our case).
+% You can change \def\x{100} and \def\y{100} on lines 24 and 25 of the copied
+% text to position the scale bar where you'd like to have it and uncomment line
+% 29 to turn off the original scale bar.
+%
+% Please enjoy typographically correct scale bars in the resulting pdf (47 kB)
 
 \documentclass{article}
 
