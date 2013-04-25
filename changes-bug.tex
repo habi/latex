@@ -1,0 +1,25 @@
+% Document to show a bug with using Sébastien or Sebastien as author with the
+% changes package. Ran into this when tracking final changes of the acinus-paper
+% with the Co-authors.
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{changes}
+
+\definechangesauthor[name={Sebastien},color=red]{sb}
+%\definechangesauthor[name={Sébastien},color=red]{sb}
+\definechangesauthor[name={Alice},color=green]{al}
+\definechangesauthor[name={Bob},color=blue]{bb}
+
+\title{Some title}
+\author{Sébastien \and Alice \and Bob}
+
+\begin{document}
+
+\maketitle
+
+\listofchanges
+
+Here is some \replaced[id=sb]{text}{thext}, which has \replaced[id=al]{three}{some} \added[id=bb]{orthographic and logical} changes.
+
+\end{document}
