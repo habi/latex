@@ -1,13 +1,20 @@
 % Document to show a bug with using Sébastien or Sebastien as author with the
 % changes package. Ran into this when tracking final changes of the acinus-paper
 % with the Co-authors.
+% Bug report submitted here: http://is.gd/P4kmf3
+
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{changes}
 
+% uncomment one of the three lines between "% --- %" and compile twice.
+% the second line (with S*é*bastien) breaks \listofchanges
+% --- %
 \definechangesauthor[name={Sebastien},color=red]{sb}
 %\definechangesauthor[name={Sébastien},color=red]{sb}
+%\definechangesauthor[name={Hägar},color=red]{sb}
+% --- %
 \definechangesauthor[name={Alice},color=green]{al}
 \definechangesauthor[name={Bob},color=blue]{bb}
 
