@@ -1,0 +1,54 @@
+% Code listing example for http://tex.stackexchange.com/a/111362/828
+
+\documentclass[paper=a4,DIV=calc]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{blindtext}
+\usepackage{lipsum}
+
+\title{Code listings}
+\author{David Haberthür}
+
+\lstset{language=Matlab,
+   keywords={break,case,catch,continue,else,elseif,end,for,function,
+   global,if,otherwise,persistent,return,switch,try,while,ones,zeros},
+   float=hbp,
+   basicstyle=\ttfamily\small,
+   keywordstyle=\color{blue},
+   commentstyle=\color{red},
+   stringstyle=\color{green},
+   frame=single,
+   numbers=left,
+   numberstyle=\tiny,
+   stepnumber=2,
+   showspaces=true,
+   showstringspaces=false}
+
+\begin{document}
+\maketitle
+
+\blindtext
+
+\begin{lstlisting}[language=Matlab,
+	frame=single,
+	caption=Some Matlab code,
+	label=matlab]
+S = 55; % Value of the underlying
+...
+V = 2.2147   %This is the value of our put option
+\end{lstlisting}
+
+Here is some text which is referring to listing~\ref{matlab}, which we will explain later. There is also a second example, which is shown in listing~\ref{python}.
+
+
+\lstinputlisting[lastline=10,
+	language=Python,
+	frame=single,
+	caption=First ten lines of some Python code,
+	label=python]
+	{/afs/psi.ch/user/h/haberthuer/Dev/ComputeSNR.py}
+
+\blindtext
+
+\end{document}
