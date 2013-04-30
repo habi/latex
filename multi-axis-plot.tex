@@ -1,0 +1,136 @@
+% Document to show how to plot two datasets (one with logarithmic axes and one without into the same plot.
+% Based on information found in http://www.tug.org/TUGboat/tb31-1/tb97wright-pgfplots.pdf and http://tex.stackexchange.com/a/42752/828
+% This file here is compilable even without the datafiles, thanks to the 'filecontents' package.
+% Real usage based on much bigger datafiles, which make the plot actually look interesting :)
+\documentclass{article}
+
+\usepackage{siunitx}
+\usepackage{tikz}
+\usepackage[active,tightpage]{preview}
+	\PreviewEnvironment{tikzpicture}
+\usepackage{pgfplots}
+	\pgfplotsset{compat=1.3}
+
+%%%%%%%%%% Cenerate some truncated input data for GitHub
+\usepackage{filecontents}
+
+\begin{filecontents}{gadox.dat}
+# from http://physics.nist.gov/PhysRefData/FFast/html/form.html
+# Data for Gd2O2S, E=0.001-120 keV
+#
+#                  [µ/rho]
+#    E             Total
+#   keV            cm2 g-1
+8.566815e-03  1.325275e+05
+8.694678e-03  1.344379e+05
+9.093814e-03  1.404058e+05
+9.233005e-03  1.424885e+05
+\end{filecontents}
+
+\begin{filecontents}{csi.dat}
+# from http://physics.nist.gov/PhysRefData/FFast/html/form.html
+# Data for CsI, E=0.001-120 keV
+#
+#                  [µ/rho]
+#    E             Total
+#   keV            cm2 g-1
+4.984800E-02  4.344176E+03
+5.059200E-02  4.857371E+03
+5.302035E-02  7.804916E+03
+5.667876E-02  1.852014E+04
+\end{filecontents}
+
+\begin{filecontents}{053.dat}
+# https://w9.siemens.com/cms/oemproducts/Home/X-rayToolbox/spektrum/Pages/radIn.aspx
+# Anode material: Tungsten
+# Peak tube voltage:
+# (range 30 - 140 kV) kV 53 kV
+# Relative voltage ripple: 0.04
+# Air kerma 0.0000025 Gy
+# Mean energy 36.350311 keV
+# List of filters
+# Material Thickness, mm
+# Al 4
+8 0
+9 5.38658e-018
+10 2.47217e-012
+11 3.21707e-009
+12 1.31631e-006
+\end{filecontents}
+
+\begin{filecontents}{080.dat}
+# https://w9.siemens.com/cms/oemproducts/Home/X-rayToolbox/spektrum/Pages/radIn.aspx	
+# Anode material: Tungsten
+# Peak tube voltage:
+# (range 30 - 140 kV) kV 80 kV
+# Relative voltage ripple: 0.04
+# Air kerma 0.0000025 Gy
+# Mean energy 46.961220 keV
+# List of filters
+# Material Thickness, mm
+# Al 4
+ 8 0
+ 9 3.65939e-018
+ 10 9.22966e-013
+ 11 1.11716e-009
+ 12 4.71905e-007
+\end{filecontents}
+
+\begin{filecontents}{120.dat}
+# https://w9.siemens.com/cms/oemproducts/Home/X-rayToolbox/spektrum/Pages/radIn.aspx	
+# Anode material: Tungsten
+# Peak tube voltage:
+# (range 30 - 140 kV) kV 120 kV
+# Relative voltage ripple: 0.04
+# Air kerma 0.0000025 Gy
+# Mean energy 58.178048 keV
+# List of filters
+# Material Thickness, mm
+# Al 4
+ 8 0
+ 9 2.69258e-018
+ 10 6.87362e-013
+ 11 1.00927e-009
+ 12 2.99634e-007
+\end{filecontents}
+
+\pgfplotstableread{gadox.dat}\gadox
+\pgfplotstableread{csi.dat}\csi
+\pgfplotstableread{053.dat}\x
+\pgfplotstableread{080.dat}\y
+\pgfplotstableread{120.dat}\z
+%%%%%%%%%% Cenerate some truncated input data for GitHub
+
+%% real input data
+%\pgfplotstableread{/afs/psi.ch/user/h/haberthuer/EssentialMed/Documents/SLS-Symposium-Instrumentation/Gd2O2S.dat}\gadox
+%\pgfplotstableread{/afs/psi.ch/user/h/haberthuer/EssentialMed/Documents/SLS-Symposium-Instrumentation/CsI.dat}\csi
+%\pgfplotstableread{/afs/psi.ch/user/h/haberthuer/EssentialMed/Dev/Spectra/Xray-Spectrum_053kV.txt}\x
+%\pgfplotstableread{/afs/psi.ch/user/h/haberthuer/EssentialMed/Dev/Spectra/Xray-Spectrum_080kV.txt}\y
+%\pgfplotstableread{/afs/psi.ch/user/h/haberthuer/EssentialMed/Dev/Spectra/Xray-Spectrum_120kV.txt}\z
+
+\begin{document}
+
+\begin{tikzpicture}
+\pgfplotsset{scale only axis,xmin=0,xmax=120,ymin=0}
+
+\begin{semilogyaxis}[
+	axis y line*=left,
+	xlabel={Energy \si{\kilo\volt}},
+	ylabel={Absorption Coefficient [\si{\centi\meter\squared\per\gram}]},
+]
+\addplot +[mark=none] table {\gadox};
+\addplot +[mark=none] table {\csi};
+\end{semilogyaxis}
+
+\begin{axis}[
+	axis y line*=right,
+	axis x line = none,
+	ylabel=Photons,
+]
+\addplot +[mark=none,green] table {\x};
+\addplot +[mark=none,cyan] table {\y};
+\addplot +[mark=none] table {\z};
+\end{axis}
+
+\end{tikzpicture}
+\end{document}
