@@ -118,8 +118,8 @@
 	xlabel={Energy \si{\kilo\volt}},
 	ylabel={Absorption Coefficient [\si{\centi\meter\squared\per\gram}]},
 ]
-\addplot +[mark=none] table {\gadox};
-\addplot +[mark=none] table {\csi};
+\addplot +[mark=none] table {\gadox};\label{gadox}
+\addplot +[mark=none] table {\csi};\label{csi}
 \end{semilogyaxis}
 
 \begin{axis}[
@@ -127,9 +127,16 @@
 	axis x line = none,
 	ylabel=Photons,
 ]
+\addlegendimage{/pgfplots/refstyle=gadox}
+\addlegendentry{GadOx}
+\addlegendimage{/pgfplots/refstyle=csi}
+\addlegendentry{CsI}
 \addplot +[mark=none,green] table {\x};
+\addlegendentry{\SI{53}{\kilo\volt}}
 \addplot +[mark=none,cyan] table {\y};
+\addlegendentry{\SI{80}{\kilo\volt}}
 \addplot +[mark=none] table {\z};
+\addlegendentry{\SI{120}{\kilo\volt}}
 \end{axis}
 
 \end{tikzpicture}
