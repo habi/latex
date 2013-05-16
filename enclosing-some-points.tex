@@ -1,0 +1,59 @@
+% basic example using the fitting library.
+% made for http://tex.stackexchange.com/a/114625/828
+
+\documentclass{article}
+\usepackage{tikz}
+	\usetikzlibrary{fit}
+\usepackage[active,tightpage]{preview}
+	\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+
+\begin{tikzpicture}
+
+\node at (0,0) (a) {o};
+
+\node at (-0.5,-1) (b1) {o};
+\node at (0.5,-1) (b2) {o};
+\draw [->] (a) -- (b1);
+\draw [->] (a) -- (b2);
+
+\node at (-0.75,-2) (c1) {o};
+\node at (0,-2) (c2) {o};
+\node at (0.75,-2) (c3) {o};
+\draw [->] (b1) -- (c1);
+\draw [->] (b1) -- (c2);
+\draw [->] (b2) -- (c1);
+\draw [->] (b2) -- (c3);
+
+\node at (-1,-3) (d1) {o};
+\node at (-0.5,-3) (d2) {o};
+\node at (0,-3) (d3) {o};
+\node at (0.25,-2.75) (d4) {o};
+\node at (0.5,-3.25) (d5) {o};
+\node at (1,-3) (d6) {o};
+\draw [->] (c1) -- (d1);
+\draw [->] (b2) to[out=-120,in=60] (d1);
+\draw [->] (c2) -- (d2);
+\draw [->] (c2) -- (d3);
+\draw [->] (c2) -- (d4);
+\draw [->] (c3) -- (d5);
+\draw [->] (c3) -- (d6);
+
+\node [draw=red,fit=(a),label=0:A] {};
+\node [draw=blue,fit=(b1) (b2),label=0:B] {};
+\node [draw=green,fit=(c1) (c2) (c3),label=0:C] (C) {};
+\node [draw=cyan,fit=(d1) (d2) (d3) (d4) (d5) (d6),label=0:D] (D) {};
+
+\node at (3,0) (e) {o};
+\node at (3,-1) (f) {o};
+\node at (3,-2) (g) {o};
+\node at (3,-3) (h) {o};
+\draw [->] (e) -- (f);
+\draw [->] (f) -- (g);
+\draw [->] (g) -- (h);
+
+\draw [->] (2,-2) -- (2.5,-2) node [midway,above] {\(\theta\)};
+
+\end{tikzpicture}
+\end{document}
