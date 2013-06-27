@@ -1,0 +1,26 @@
+% Answer for http://tex.stackexchange.com/a/121348/828, which I was also answered (more thorougly, but with equal endresult) by "Torbjørn T." some minutes before me: http://tex.stackexchange.com/a/121346/828
+
+\documentclass{article}
+\usepackage{tikz}
+	\usetikzlibrary{arrows}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+\begin{tikzpicture}[->,node distance=2.5cm,auto,main node/.style={rectangle,rounded corners,draw,align=center}]
+
+\node [main node] (A) {$A$};
+\node [main node] (D) [below left of=A] {$D$};
+\node [main node] (B) [below of=D] {$B$};
+\node [main node] (E) [below right of=A] {$E$};
+\node [main node] (C) [below of=E] {$C$};
+
+\path (A) edge node [left] {$d$} (D);
+\path (A) edge node [right] {$e$} (E);
+\path (D) edge node [right] {$b$} (B);
+\path (E) edge node [left] {$c$} (C);
+\path (B) edge [out=135,in=180] node [left] {$a$} (A);
+\path (C) edge [out=45,in=0] node [right] {$a$} (A);
+
+\end{tikzpicture}
+\end{document}
