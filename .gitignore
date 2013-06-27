@@ -27,3 +27,4 @@
 *.synctex.gz
 *.toc
 *.vrb
+matlab2tikz*
