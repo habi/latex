@@ -77,9 +77,8 @@ print 80 * '-'
 
 # Display image to user
 Image = plt.imread(options.Image)
-plt.imshow(flipud(Image), origin='lower')
+plt.imshow(Image, origin='lower')
 plt.axis([0, Image.shape[1], 0, Image.shape[0]])
-plt.title(options.Image)
 
 # Either let user choose a set length or use the full scale of the image
 if options.fullscale:
@@ -91,17 +90,23 @@ if options.fullscale:
     EndPoint = [(Image.shape[1], Image.shape[0] / 2)]
 else:
     print
-    print 'Please click on two points', options.Scalebarlength, 'px (@' +\
-    str(options.Pixelsize), 'um) apart'
+    print 'Please click on two points', options.Scalebarlength, 'px (@',\
+        options.Pixelsize, 'um) apart, i.e. the length you chose will',\
+        'be', str(options.Scalebarlength * options.Pixelsize / 1000), 'mm'
     print
-    plt.title('Click on start point of ' + str(options.Scalebarlength) +\
-              ' px long line')
+    plt.title(options.Image + '\nClick on start point of ' +
+              str(options.Scalebarlength) + ' px long (' +
+              str(options.Scalebarlength * options.Pixelsize / 1000) +
+              ' mm) line')
     StartPoint = ginput(1)
     plt.plot(StartPoint[0][0], StartPoint[0][1], marker='o', color='g')
-    plt.draw()
     plt.axis([0, Image.shape[1], 0, Image.shape[0]])
-    plt.title('Click on end point of ' + str(options.Scalebarlength) +\
-              ' px long line')
+    plt.draw()
+    plt.title(options.Image + '\nClick on end point of ' +
+              str(options.Scalebarlength) + ' px long (' +
+              str(options.Scalebarlength * options.Pixelsize / 1000) +
+              ' mm) line')
+    plt.draw()
     EndPoint = ginput(1)
 
 # Plot the length we're using to calculate
@@ -118,7 +123,9 @@ if options.fullscale:
     SetLength = Image.shape[1]
 else:
     SetLength = options.Scalebarlength
-plt.title('This line is ' + str(SetLength) + ' px long.')
+plt.title(options.Image + '\nThis line is ' + str(options.Scalebarlength) +
+          ' px long (' +
+          str(options.Scalebarlength * options.Pixelsize / 1000) + ' mm)')
 plt.draw()
 
 ItemLength = 100  # px
@@ -133,15 +140,17 @@ ScaleBarLength = ItemLength / UnitLength * SetScaleBarTo
 # Inform the user
 print 'The chosen length of', int(round(ChosenLength)), 'px corresponds to',\
     Scale, 'mm.'
-print ItemLength, 'px are thus', int(round(UnitLength)), 'um',\
-    int(round(ScaleBarLength)), 'px are thus', SetScaleBarTo, 'um and', \
-    int(round(ScaleBarLength / (SetScaleBarTo / 100))), 'px are thus 100 um'
+print ItemLength, 'px are thus', int(round(UnitLength)), 'um'
+print int(round(ScaleBarLength)), 'px are thus', SetScaleBarTo, 'um and'
+print int(round(ScaleBarLength / (SetScaleBarTo / 100))), 'px are thus 100 um'
 
 # Write LaTeX-file
 print 80 * '-'
-print 'writing everything to', os.path.splitext(options.Image)[0] +\
-    '_scalebar.tex'
-outputfile = open(os.path.splitext(options.Image)[0] + '_scalebar.tex', 'w')
+OutputFile = os.path.join(os.getcwd(),
+                          os.path.splitext(os.path.basename(options.Image))
+                          [0] + '_scalebar.tex')
+print 'writing LaTeX-code to', OutputFile
+outputfile = open(OutputFile, 'w')
 outputfile.write('\documentclass{article}\n')
 outputfile.write('\usepackage{graphicx}\n')
 outputfile.write('\usepackage{tikz}\n')
@@ -204,23 +213,22 @@ outputfile.close()
 
 # Compile LaTeX-file and cleanup afterwards
 nirvana = open("NUL", "w")
-print 'compiling ', os.path.splitext(options.Image)[0] +\
-    '_scalebar.tex'
+print 'compiling', OutputFile
 # compile even with errors
-subprocess.call('latexmk -pdf -silent ' + os.path.splitext(options.Image)[0] +
-                '_scalebar.tex', stdout=nirvana, stderr=nirvana, shell=True)
+subprocess.call('latexmk -pdf -silent ' + OutputFile, stdout=nirvana,
+                stderr=nirvana, shell=True)
 # cleanup after compilation
 print 'cleaning up'
-subprocess.call('latexmk -c ' + os.path.splitext(options.Image)[0] +
-                '_scalebar.tex', stdout=nirvana, stderr=nirvana, shell=True)
+subprocess.call('latexmk -c ' + OutputFile, stdout=nirvana, stderr=nirvana,
+                shell=True)
 nirvana.close()
 
 # Make sure we show image and inform the user what has been going on.
 print 80 * '-'
-print 'You now have two files (' + os.path.splitext(options.Image)[0] +\
-    '_scalebar.tex and', os.path.splitext(options.Image)[0] + '_scalebar.' +\
-    'pdf). The .tex-file is for further editing and the .pdf file can be '\
-    'used as is in a PowerPoint or Keynote slide...'
+print 'You now have two files (' + OutputFile + ' and', OutputFile[:-3] +\
+    'pdf).'
+print 'The .tex-file is for further editing and the .pdf file can be used as '\
+    'is in a PowerPoint or Keynote slide...'
 plt.show()
 
 exit()
