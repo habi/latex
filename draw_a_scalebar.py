@@ -77,7 +77,7 @@ print 80 * '-'
 
 # Display image to user
 Image = plt.imread(options.Image)
-plt.imshow(Image, origin='lower')
+plt.imshow(Image)
 plt.axis([0, Image.shape[1], 0, Image.shape[0]])
 
 # Either let user choose a set length or use the full scale of the image
@@ -166,11 +166,11 @@ outputfile.write('\pgfmathsetlength{\imagewidth}{\imsize}%\n')
 outputfile.write('\pgfmathsetlength{\imagescale}{\imagewidth/' +
                  str(Image.shape[1]) + '}%\n')
 outputfile.write('\def\\x{' + str(int(round(Image.shape[1] * 0.618))) +
-                 '}% scalebar-x at golden ratio of x=' + str(Image.shape[1]) +
-                 'px\n')
+                 '}% scalebar-x starting at golden ratio of image width of ' +
+                 str(Image.shape[1]) + 'px\n')
 outputfile.write('\def\y{' + str(int(round(Image.shape[0] * 0.9))) +
-                 '}% scalebar-y at 90% of height of y=' + str(Image.shape[0]) +
-                 'px\n')
+                 '}% scalebar-y at 90% of image height of ' +
+                 str(Image.shape[0]) + 'px\n')
 outputfile.write('\def\shadow{4}% shadow parameter for scalebar\n')
 outputfile.write('\\begin{tikzpicture}[x=\imagescale,y=-\imagescale]\n')
 outputfile.write('    \clip (0,0) rectangle (' + str(Image.shape[1]) + ',' +
@@ -190,9 +190,9 @@ outputfile.write('    % ' + str(int(round(ChosenLength))) + 'px = ' +
                  'px = 100um\n')
 outputfile.write('    %\draw[|-|,blue,thick] (' +
                  str(int(round(StartPoint[0]))) + ',' +
-                 str(int(round(EndPoint[1]))) + ') -- (' +
+                 str(int(round(StartPoint[1]))) + ') -- (' +
                  str(int(round(EndPoint[0]))) + ',' +
-                 str(int(round(StartPoint[1]))) + ') node [sloped,midway,' +
+                 str(int(round(EndPoint[1]))) + ') node [sloped,midway,' +
                  'above,fill=white,semitransparent,text opacity=1] {\SI{' +
                  str(Scale) + '}{\milli\meter} (' +
                  str(int(round(ChosenLength))) + 'px) TEMPORARY!};\n')
@@ -223,10 +223,10 @@ subprocess.call('latexmk -c ' + OutputFile, stdout=nirvana, stderr=nirvana,
                 shell=True)
 nirvana.close()
 
-# Make sure we show image and inform the user what has been going on.
+# Inform the user what has been going on and make sure we show image
 print 80 * '-'
-print 'You now have two files (' + OutputFile + ' and', OutputFile[:-3] +\
-    'pdf).'
+print 'You now have two files (' + OutputFile + ' and .../' +\
+    os.path.basename(OutputFile)[:-3] + 'pdf).'
 print 'The .tex-file is for further editing and the .pdf file can be used as '\
     'is in a PowerPoint or Keynote slide...'
 plt.show()
