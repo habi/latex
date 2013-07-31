@@ -120,9 +120,7 @@ plt.axis([0, Image.shape[1], 0, Image.shape[0]])
 
 # Calculate the stuff we need to draw a nice scalebar and update figure
 if options.fullscale:
-    SetLength = Image.shape[1]
-else:
-    SetLength = options.Scalebarlength
+    options.Scalebarlength = Image.shape[1]
 plt.title(options.Image + '\nThis line is ' + str(options.Scalebarlength) +
           ' px long (' +
           str(options.Scalebarlength * options.Pixelsize / 1000) + ' mm)')
@@ -131,7 +129,7 @@ plt.draw()
 ItemLength = 100  # px
 SetScaleBarTo = 500  # um
 
-Scale = SetLength * options.Pixelsize / 1000
+Scale = options.Scalebarlength * options.Pixelsize / 1000
 ChosenLength = np.hypot(StartPoint[0] - EndPoint[0],
                         StartPoint[1] - EndPoint[1])
 UnitLength = Scale / ChosenLength * ItemLength * 1000
