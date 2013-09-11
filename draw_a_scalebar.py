@@ -165,10 +165,12 @@ outputfile.write('\pgfmathsetlength{\imagescale}{\imagewidth/' +
                  str(Image.shape[1]) + '}%\n')
 outputfile.write('\def\\x{' + str(int(round(Image.shape[1] * 0.618))) +
                  '}% scalebar-x starting at golden ratio of image width of ' +
-                 str(Image.shape[1]) + 'px\n')
+                 str(Image.shape[1]) + 'px = ' + 
+                 str(int(round(Image.shape[1] * 0.618))) + '\n')
 outputfile.write('\def\y{' + str(int(round(Image.shape[0] * 0.9))) +
                  '}% scalebar-y at 90% of image height of ' +
-                 str(Image.shape[0]) + 'px\n')
+                 str(Image.shape[0]) + 'px = ' +
+                 str(int(round(Image.shape[0] * 0.9))) + '\n')
 outputfile.write('\def\shadow{4}% shadow parameter for scalebar\n')
 outputfile.write('\\begin{tikzpicture}[x=\imagescale,y=-\imagescale]\n')
 outputfile.write('    \clip (0,0) rectangle (' + str(Image.shape[1]) + ',' +
