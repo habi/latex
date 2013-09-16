@@ -4,13 +4,27 @@
 \usepackage{labels}
 	\LabelCols=3% Number of columns of labels per page
 	\LabelRows=7% Number of rows of labels per page
-	\LeftBorder=0mm% Space added to left border of each label
-	\RightBorder=0mm% Space added to right border of each label
-	\TopBorder=0mm% Space to leave at top of sheet
-	\BottomBorder=0mm% Space to leave at bottom of sheet
+	\LeftBorder=1mm% Space added to left border of each label
+	\RightBorder=1mm% Space added to right border of each label
+	\TopBorder=1mm% Space to leave at top of sheet
+	\BottomBorder=1mm% Space to leave at bottom of sheet
+
 \begin{document}
-\genericlabel{example}
-\genericlabel{example}
-\genericlabel{example}
-\genericlabel{example}
+
+\begin{labels}
+Here is the first label
+
+Here is another, separated by an empty line
+
+Here is the third label
+
+This label should be on the next line, because we specified a \(3\times7\) layout.
+
+This label is very very long, and should thus wrap in the space alloted to one label. We can also introduce linebreaks \\ by adding \verb+\\+ somewhere.
+
+Here's the next label
+
+Here's the last label, because it's now time to stop
+\end{labels}
+
 \end{document}
