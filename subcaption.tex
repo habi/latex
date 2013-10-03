@@ -1,0 +1,25 @@
+% Answer for http://tex.stackexchange.com/a/136228/828, in which I learned about the deprecation of the subfigure and subfig packages, according to https://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions#Subfloats
+\documentclass{article}
+
+\usepackage[demo]{graphicx}
+\usepackage{subcaption}
+
+\begin{document}
+
+\begin{figure}
+	\centering
+	\subcaptionbox{subcaption}{%
+		\includegraphics[width=6cm,height=3cm]{gaussian}%
+	}%
+	\subcaptionbox{subcaption}{%
+		\includegraphics[width=6cm,height=3cm]{star}%
+	}%
+	\\%
+	\subcaptionbox{subcaption}{%
+		\includegraphics[width=6cm,height=3cm]{heart}%
+	}%
+	\caption{figure caption}
+	\label{fig:label}
+\end{figure}
+
+\end{document}
