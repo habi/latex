@@ -1,4 +1,5 @@
 % Code for http://tex.stackexchange.com/q/136427/828
+% Updated with answer, see old revisions for original
 \documentclass{article}
 \usepackage{siunitx}
 \usepackage{pgfplots}
@@ -8,12 +9,12 @@
 
 \begin{document}
 
-\begin{filecontents*}{Xray-Spectrum_040.txt}
+\begin{filecontents*}{Xray-Spectrum_040kv.txt}
 9 2.23512e-015
 10 2.18948e-009
 \end{filecontents*}
 
-\begin{filecontents*}{Xray-Spectrum_046.txt}
+\begin{filecontents*}{Xray-Spectrum_046kv.txt}
 9 1.98718e-015
 10 1.56485e-009
 \end{filecontents*}
@@ -21,9 +22,9 @@
 \begin{tikzpicture}
     \begin{axis}
     \foreach \v in {40,46} {
-        \addplot table {Xray-Spectrum_0\v.txt};
-        %\addlegendentry{\SI{\v}{\kilo\volt}}
-        \addlegendentry{\v kv}
+        \edef\temp{\noexpand\addlegendentry{\SI{\v}{\kilo\volt}}}
+        \addplot table {Xray-Spectrum_0\v kv.txt};
+        \temp
     }
     \end{axis}
 \end{tikzpicture}
