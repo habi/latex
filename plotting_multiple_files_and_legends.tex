@@ -1,0 +1,30 @@
+% Code for http://tex.stackexchange.com/q/136427/828
+\documentclass{article}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\usepackage[active,tightpage]{preview}
+    \PreviewEnvironment{tikzpicture}
+\usepackage{filecontents}
+
+\begin{document}
+
+\begin{filecontents*}{Xray-Spectrum_040.txt}
+9 2.23512e-015
+10 2.18948e-009
+\end{filecontents*}
+
+\begin{filecontents*}{Xray-Spectrum_046.txt}
+9 1.98718e-015
+10 1.56485e-009
+\end{filecontents*}
+
+\begin{tikzpicture}
+    \begin{axis}
+    \foreach \v in {40,46} {
+        \addplot table {Xray-Spectrum_0\v.txt};
+        %\addlegendentry{\SI{\v}{\kilo\volt}}
+        \addlegendentry{\v kv}
+    }
+    \end{axis}
+\end{tikzpicture}
+\end{document}
