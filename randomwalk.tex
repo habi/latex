@@ -1,0 +1,35 @@
+% random walking according to own experimentations and based on TikZ manual, as
+% shown here: http://tex.stackexchange.com/a/11682/828
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[outline]{contour}
+\usepackage[active,tightpage]{preview}
+	\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+
+\pgfmathsetseed{1796}
+
+\begin{tikzpicture} [thick, line cap=round]
+	\foreach \i in {1,...,10} {
+		\draw [nearly transparent] (0,0) circle (\i);
+	};
+ 	% simplest way
+	\draw [red, rounded corners] (0,0) 
+		\foreach \i in {1,...,100} { 	-- ++(rand,rand)};
+	% angle way, with defined step length
+	\draw [rounded corners, green] (0,0)
+		\foreach \i in {1,...,100} { -- ++(rand*360:1)};
+	% color the path
+	% along the way we have to save where we've been at
+	% we cannot easily use 'rounded corners', look at the example linked above
+	% (on line 2) if you'd like to do that, since it's more complicated\ldots
+	\coordinate (current point) at (0,0);
+	\foreach \i in {0,...,100} {
+		\draw [blue!\i] (current point) -- ++(rand,rand) node (new point) {};
+		\coordinate (current point) at (new point);
+		}
+	\fill (0,0) circle (0.125) node [below] {\contour{white}{Start}};	
+\end{tikzpicture}
+
+\end{document}
