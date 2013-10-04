@@ -1,29 +1,44 @@
-% My general-use, minimal \LaTeX document, from which I generally start
-
-\documentclass[paper=a4,DIV=calc]{scrartcl}
- 
+% My general-use, minimal \LaTeX document, from which I normally start
+\documentclass[paper=a4,DIV=calc,twoside]{scrartcl}
 \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage[T1]{fontenc}
+\usepackage{microtype}
 \usepackage[english]{babel}
+\usepackage[backref,url=false]{biblatex}
+	\addbibresource{path/to/library.bib}
 \usepackage{graphicx}
 \usepackage{caption,subfig} % z.B. [font=scriptsize]
 \usepackage{siunitx}
-\usepackage[numbers,sort&compress]{natbib}
-\usepackage{microtype}
-%\DisableLigatures{encoding = *, family = * }
-\usepackage{hyperref}
+\usepackage{tikz}
+%\DisableLigatures{encoding = *, family = * } % makes for easy copying from the PDF
+\usepackage{gitinfo}
+\usepackage{fancyhdr}
+\usepackage{todonotes}
+\usepackage[strict]{nag}
+\usepackage[colorlinks=true]{hyperref}
  
 \newcommand{\imsize}{.5\linewidth}
-\title{Awesome title} 
-\author{David Haberthür}
+\title{Awesome title}
+\subtitle{Even more awesome subtitle| Version \gitAbbrevHash}
+\author{David Haberthür%
+	\thanks{\href{mailto:email}{email}, phone}%
+	 }
 \date{\today}
 
+\pagestyle{fancy}
+\fancyfoot{}
+\fancyfoot[RE,LO]{Version \gitAbbrevHash{} from \gitAuthorIsoDate}
+\fancyfoot[RO,LE]{\thepage}
+
+\newcommand{\ie}{i.e.\ }
+\newcommand{\eg}{e.g.\ }
+\newcommand{\imsize}{\linewidth}
+
 \begin{document}
+
 \maketitle
 
-disable ligatures with \verb+\usepackage{microtype}+ and \verb+\DisableLigatures{encoding = T1}+ $\rightarrow$ copying from pdf is easier for stuff like ``different'', since ligatures are disables
-
-\bibliographystyle{unsrtnat}
-\bibliography{../library}
+\printbibliography
 
 \end{document}
