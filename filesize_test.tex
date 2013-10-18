@@ -1,0 +1,105 @@
+% Proof that file size does not increase with increased numbers of included files.
+% Compile with `pfdLaTeX`.
+% I did not know that it does not when you include the same file:http://tex.stackexchange.com/a/139405/828
+% The file we include is 25 K according to "ls -lh *.jpg"
+% Use the command below to keep an eye on the file size while uncommenting environments
+% watch -n 2 "ls -lh file*.pdf"
+% figenv	pg	Filesize
+% lipsum	2	44K
+% 1		3	69K
+% 2		4	69K
+% 3		5	70K
+% 4		6	70K
+% 5		7	70K
+% 6		8	70K
+% 8		10	73K
+% 9		11	74K
+% 10		12	74K
+% So, while the file *does* grow, it does not scales linearly with the number of inclusions. Cool!
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{lipsum}
+
+\title{Size test}
+\author{David Haberthür}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\lipsum
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{1}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{2}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{3}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{4}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{5}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{6}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{7}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{8}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{9}
+\end{figure}
+\clearpage
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.618\linewidth]{scalebarimage}
+	\caption{10}
+\end{figure}
+\clearpage
+
+\end{document}
