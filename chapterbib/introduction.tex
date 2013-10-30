@@ -1,20 +1,27 @@
 %!TeX root = main.tex
 \chapter{Introduction}
-To make this document work, you have to
+To make this document work, you have to supply your own bibliography file in
+each chapter (change {libraby.bib} on the last line to your \BibTeX-file) and
+change the \verb+\cite+-commands to keys present in your bibliography.
+
+Then 
 \begin{itemize}
 \item run \verb+pdflatex+ on the main file
 \item run \BibTeX\ on each of the \verb+.aux+ files generated for each chapter.
 \item run \verb+pdflatex+ on the main file
 \item run \verb+pdflatex+ on the main file
 \end{itemize}
-run \BibTeX on each of the \verb+.aux+ files generated for each chapter.
-I did this with this the tiny bash script shown below, which does call \BibTeX for each of the \verb+.aux+ files found in the directory it's run in.
-\begin{lstlisting}[language=bash]
-pdflatex main
-for i in `ls *.aux`; do bibtex $i; done
-pdflatex main
-pdflatex main
-\end{lstlisting}
+
+You should be able to achieve all of the points above with the tiny bash script
+shown below, which does \verb+pdftex+ the main file a sufficient amount of times
+and calls \BibTeX\ for each of the \verb+.aux+ files found in the directory it
+is run in between those calls.
+
+\lstinputlisting[language=bash]{compilationscript.bash}
+
+You can enter these commands one after one in your terminal, or just call
+\verb+bash compilationscript.bash+ in your terminal if you're using some kind of
+UNIX system.
 
 \cite{Author2013}
 \bibliographystyle{plainnat}
