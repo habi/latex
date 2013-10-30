@@ -1,0 +1,36 @@
+\documentclass{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage[numbers,square,sectionbib]{natbib}
+\usepackage{chapterbib}
+\usepackage{lipsum}
+\usepackage{dtklogos}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+\lstset{basicstyle=\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	numbers=left,
+	numbersep=5pt,
+	stepnumber=2,
+	showspaces=true,
+	title=\lstname,       
+	frame=single,
+}
+
+\title{Chapterbib}
+\author{David Haberthür}
+\date{\today}
+
+\begin{document}
+\maketitle
+\include{introduction}
+\include{material}
+\include{results}
+\include{discussion}
+\end{document}

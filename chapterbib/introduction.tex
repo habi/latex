@@ -1,0 +1,21 @@
+%!TeX root = main.tex
+\chapter{Introduction}
+To make this document work, you have to
+\begin{itemize}
+\item run \verb+pdflatex+ on the main file
+\item run \BibTeX\ on each of the \verb+.aux+ files generated for each chapter.
+\item run \verb+pdflatex+ on the main file
+\item run \verb+pdflatex+ on the main file
+\end{itemize}
+run \BibTeX on each of the \verb+.aux+ files generated for each chapter.
+I did this with this the tiny bash script shown below, which does call \BibTeX for each of the \verb+.aux+ files found in the directory it's run in.
+\begin{lstlisting}[language=bash]
+pdflatex main
+for i in `ls *.aux`; do bibtex $i; done
+pdflatex main
+pdflatex main
+\end{lstlisting}
+
+\cite{Author2013}
+\bibliographystyle{plainnat}
+\bibliography{library.bib}
