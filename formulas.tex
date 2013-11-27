@@ -1,0 +1,83 @@
+% Answer for http://tex.stackexchange.com/q/147159/828
+% Basically just reformatting the code given in  the answer, and nice-ying it
+%  up a bit.
+\documentclass[paper=a4]{scrartcl}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\title{Calcul théorique de la propulsion éléctromagnetique de l'aimant}
+\author{Lawrence}
+
+\begin{document}
+\maketitle
+
+\section*{Constantes ``modifiables''}
+\begin{table}[h]
+	\begin{tabular}{lc}
+		\toprule
+		Rayon des spires & \(D\)\\
+		Nombre de spire & \(N\)\\
+		Tension du générateur & \(\mu\)\\
+		Capacité du condensateur & \(C\)\\
+		Arètes du tore & \(L\)\\
+		Masse du tore & \(m\)\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\section*{Variables}
+\begin{table}[h]
+	\begin{tabular}{lc}
+		\toprule
+		Vitesse de tore & \(v(t)\)\\
+		Tension du condensateur & \(u(t)\)\\
+		Intensité & \(i(t)\)\\
+		Champ magnétique & \(\vec{B}\)\\
+		Potentiel vecteur & \(\vec{A}\)\\
+		Densité de courant dans le tore & \(\vec{j}\)\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\section*{Equations}
+\begin{equation}
+	\boxed{
+		m \frac{dv}{dt} = -mg + \iiint_{
+			\textrm{tore-en-mouvement}} (\vec{j} \times \vec{B}) \cdot \vec{e_z
+			}d\tau
+	}
+	\label{m}
+\end{equation}
+
+\begin{equation}
+	i = -C \frac{du}{dt}
+	\label{i}
+\end{equation}
+
+\begin{equation}
+	u = Ri + \iint_{N-spires} \vec{B} \cdot d\vec{S}
+	\label{u}
+\end{equation}
+
+\begin{equation}
+	\vec{j} = \gamma \left(
+		\vec{v} \times \vec{B} - \frac{\partial\vec{A}}{\partial t}
+		\right)
+	\label{j}
+\end{equation}
+
+\begin{equation}
+	\vec{A} = \frac{\mu_0}{4\pi} \iiint_{tore-en-mouvement} \frac{\vec{j}}{PM}
+		\cdot d\tau + \frac{\mu_0 Ni}{4\pi} \int\frac{d\vec{r}}{PM}
+	\label{A}
+\end{equation}
+
+\begin{equation}
+	\vec{B} = rot\vec{A}
+	\label{B}
+\end{equation}
+
+\end{document}
