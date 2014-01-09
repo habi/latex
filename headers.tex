@@ -1,0 +1,23 @@
+% Answer for http://tex.stackexchange.com/q/153167/828
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{lipsum}
+
+\title{Some document}
+\author{Shivam Dhoot}
+
+% Turn on the style
+\pagestyle{fancy}
+% Clear the header and footer
+\fancyhead{}
+\fancyfoot{}
+% Set the right side of the footer to be the page number
+\fancyfoot[R]{\thepage}
+
+\begin{document}
+\maketitle
+% Input some blind text
+\lipsum
+\end{document}
