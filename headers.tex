@@ -1,23 +1,26 @@
-% Answer for http://tex.stackexchange.com/q/153167/828
+\documentclass{report} % to have chapters
 
-\documentclass{article}
+\usepackage{fancyhdr} % to change header and footers
+\usepackage{blindtext} % to quickly get a full document
 
-\usepackage{fancyhdr}
-\usepackage{lipsum}
+\title{Some document with redefined footer on every page}
+\author{David Haberth\"ur}
 
-\title{Some document}
-\author{Shivam Dhoot}
-
-% Turn on the style
-\pagestyle{fancy}
-% Clear the header and footer
-\fancyhead{}
-\fancyfoot{}
+\pagestyle{fancy} % Turn on the style
+\fancyhf{} % Start with clearing everything in the header and footer
 % Set the right side of the footer to be the page number
 \fancyfoot[R]{\thepage}
+
+% Redefine plain style, which is used for titlepage and chapter beginnings
+% From http://tex.stackexchange.com/a/30230/828
+\fancypagestyle{plain}{%
+    \renewcommand{\headrulewidth}{0pt}%
+    \fancyhf{}%
+    \fancyfoot[R]{\thepage}%
+}
 
 \begin{document}
 \maketitle
 % Input some blind text
-\lipsum
+\blinddocument
 \end{document}
