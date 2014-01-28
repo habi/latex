@@ -1,0 +1,30 @@
+% How to redefine the subcaption to have the subfloats named "Figure"
+% For http://tex.stackexchange.com/a/156358/828
+
+ \documentclass{article}
+
+\usepackage[demo]{graphicx}
+\usepackage{blindtext}
+\usepackage{subfig}
+
+\renewcommand{\thesubfigure}{Figure \arabic{subfigure}}
+\captionsetup[subfigure]{labelformat=simple, labelsep=colon}
+%\captionsetup[subfigure]{labelformat=parens, labelsep=colon}
+
+\begin{document}
+
+\blindtext
+
+\begin{figure}[ht]
+	\centering
+	\subfloat[caption]{
+		\includegraphics[width=0.4\linewidth]{Screenshots/step1.png}
+		}
+	\subfloat[caption]{
+		\includegraphics[width=0.41\linewidth]{boundingbox.eps}
+		}
+\end{figure}
+
+\blindtext
+
+\end{document}
