@@ -1,0 +1,26 @@
+% Code to highlight regions in a pgf plot, as shown in Figure 3.1. of my [https://github.com/habi/PhD-Thesis](PhD-Thesis).
+% For http://tex.stackexchange.com/a/156364/828
+
+\documentclass{article}
+\usepackage{pgfplots}
+\usepackage[graphics,tightpage,active]{preview}
+
+\PreviewEnvironment{tikzpicture}
+
+\begin{document}
+
+\begin{tikzpicture}
+	\begin{axis}[%
+		ymin=-1,%
+		ymax=1,%
+		grid=both,%
+		]
+	\addplot [draw=red,fill=red, semitransparent]
+		coordinates {(55,-1.1) (55,1.1) (333,1.1) (333,-1.1)};
+	\addplot [draw=green,fill=green, semitransparent]
+		coordinates {(-360,-1.1) (-360,1.1) (55,1.1) (55,-1.1)};
+	\addplot[domain=-360:360, blue , very thick, smooth]{sin(x)};
+	\end{axis}
+\end{tikzpicture}
+
+\end{document}
