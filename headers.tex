@@ -1,7 +1,8 @@
-\documentclass{report} % to have chapters
+\documentclass[12pt]{report} % to have chapters
 
 \usepackage{fancyhdr} % to change header and footers
 \usepackage{blindtext} % to quickly get a full document
+\usepackage{times}
 
 \title{Some document with redefined footer on every page}
 \author{David Haberth\"ur}
@@ -19,6 +20,9 @@
     \fancyfoot[R]{\thepage}%
 }
 
+\usepackage{titlesec}
+%\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\titleformat{\chapter}{\Large\bfseries}{\thechapter}{1em}{}
 \begin{document}
 \maketitle
 % Input some blind text
