@@ -175,12 +175,12 @@ outputfile.write("\def\shadow{4}% shadow parameter for scalebar\n")
 outputfile.write("\\begin{tikzpicture}[x=\imagescale,y=-\imagescale]\n")
 outputfile.write("    \clip (0,0) rectangle (" + str(Image.shape[1]) + "," +
                  str(Image.shape[0]) + ");\n")
-outputfile.write("    %\\node[anchor=north west, inner sep=0pt, outer " +
-                 "sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{" +
-                 str(os.path.abspath(options.Image)) + "}};\n")
 outputfile.write("    \\node[anchor=north west, inner sep=0pt, outer " +
                  "sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{" +
-                 str(os.path.splitext(options.Image)[0]) + "}};\n")
+                 str(os.path.join(os.path.split(options.Image)[0],
+                     '{{' +
+                     os.path.splitext(os.path.basename(options.Image))[0]) +
+                     '}}') + "}};\n")
 outputfile.write("    % " + str(int(round(ChosenLength))) + "px = " +
                  str(Scale) + "mm > " + str(ItemLength) + "px = " +
                  str(int(round(UnitLength))) + "um > " +
@@ -212,15 +212,13 @@ outputfile.write("\end{document}%\n")
 outputfile.close()
 
 # Compile LaTeX-file and cleanup afterwards
-nirvana = open("NUL", "w")
+nirvana = open(os.devnull, "w")
 print "compiling", OutputFile
 # compile even with errors
-subprocess.call("latexmk -pdf -silent " + OutputFile, stdout=nirvana,
-                stderr=nirvana, shell=True)
+subprocess.call(['latexmk', '-pdf', '-silent', OutputFile], stdout=nirvana)
 # cleanup after compilation
 print "cleaning up"
-subprocess.call("latexmk -c " + OutputFile, stdout=nirvana, stderr=nirvana,
-                shell=True)
+subprocess.call(['latexmk', '-c', OutputFile], stdout=nirvana)
 nirvana.close()
 
 # Inform the user what has been going on and make sure we show image
