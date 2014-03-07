@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """
 Script to generate nice scalebars on images with LaTeX and TikZ.
 Ported from https://github.com/habi/latex/blob/master/scalebar.m to Python
