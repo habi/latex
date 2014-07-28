@@ -40,7 +40,7 @@ doc:	clean $(DOC)
 
 %.docx:	%.md
 	pandoc -s -S --bibliography=$(BIB) -o $@ $<
-	rename.ul .docx -$(ID).docx *.docx
+	rename.ul .docx _$(ID).docx *.docx
 
 clean:
 	rm -f *.html *.pdf *.tex *.docx
