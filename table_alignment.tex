@@ -1,0 +1,20 @@
+% Code for http://tex.stackexchange.com/a/196987/828
+% Solving tabular alignment problems
+\documentclass{standalone}
+\usepackage{booktabs}
+
+\begin{document}
+
+\begin{tabular}{r c c c c c}
+	\toprule
+	‎j/i 		& 1:Tumor & 2:Envir & 3:Leuk & 4:Lymph & 5:Macroph \\
+	\midrule
+	Tumor 	& 0 		  & 1 ‎& \(‎\pm1\) & \(\pm1\) & \(\pm1\)\\
+	Envir 	& 1 		  & 0 & 0		  & 0 		     & 0\\
+	Leuk 	& \(‎\pm1\) & ‎0 ‎& 0‎ 		  & 0 		     & 0 \\
+	Lymph	& \(‎\pm1\) & ‎0 ‎& 0‎ 		  & 0 		     &  \(‎\pm1\)  \\
+	Macroph 	& \(‎\pm1\) & ‎0 ‎& 0‎ 		  & 0 		     & 0 \\
+	\bottomrule
+\end{tabular}
+
+\end{document}
