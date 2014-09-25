@@ -155,7 +155,7 @@ outputfile.write("\usepackage{graphicx}\n")
 outputfile.write("\usepackage{tikz}\n")
 outputfile.write("\usepackage{siunitx}\n")
 outputfile.write("\usepackage[graphics,tightpage,active]{preview}\n")
-outputfile.write("    \PreviewEnvironment{tikzpicture}\n")
+outputfile.write("\t\PreviewEnvironment{tikzpicture}\n")
 outputfile.write("\\newcommand{\imsize}{\linewidth}\n")
 outputfile.write("\\newlength\imagewidth % needed for scalebars\n")
 outputfile.write("\\newlength\imagescale % ditto\n")
@@ -174,22 +174,22 @@ outputfile.write("\def\y{" + str(int(round(Image.shape[0] * 0.9))) +
                  str(int(round(Image.shape[0] * 0.9))) + "\n")
 outputfile.write("\def\shadow{4}% shadow parameter for scalebar\n")
 outputfile.write("\\begin{tikzpicture}[x=\imagescale,y=-\imagescale]\n")
-outputfile.write("    \clip (0,0) rectangle (" + str(Image.shape[1]) + "," +
+outputfile.write("\t\clip (0,0) rectangle (" + str(Image.shape[1]) + "," +
                  str(Image.shape[0]) + ");\n")
-outputfile.write("    \\node[anchor=north west, inner sep=0pt, outer " +
+outputfile.write("\t\\node[anchor=north west, inner sep=0pt, outer " +
                  "sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{" +
                  str(os.path.join(os.path.split(options.Image)[0],
                      '{{' +
                      os.path.splitext(os.path.basename(options.Image))[0]) +
                      '}}') + "}};\n")
-outputfile.write("    % " + str(int(round(ChosenLength))) + "px = " +
+outputfile.write("\t% " + str(int(round(ChosenLength))) + "px = " +
                  str(Scale) + "mm > " + str(ItemLength) + "px = " +
                  str(int(round(UnitLength))) + "um > " +
                  str(int(round(ScaleBarLength))) + "px = " +
                  str(SetScaleBarTo) + "um, " +
                  str(int(round(ScaleBarLength / (SetScaleBarTo / 100)))) +
                  "px = 100um\n")
-outputfile.write("    %\draw[|-|,blue,thick] (" +
+outputfile.write("\t%\draw[|-|,blue,thick] (" +
                  str(int(round(StartPoint[0]))) + "," +
                  str(int(round(StartPoint[1]))) + ") -- (" +
                  str(int(round(EndPoint[0]))) + "," +
@@ -197,14 +197,14 @@ outputfile.write("    %\draw[|-|,blue,thick] (" +
                  "above,fill=white,semitransparent,text opacity=1] {\SI{" +
                  str(Scale) + "}{\milli\meter} (" +
                  str(int(round(ChosenLength))) + "px) TEMPORARY!};\n")
-outputfile.write("    \draw[|-|,thick] (\\x+\shadow,\y+\shadow) -- (\\x+" +
+outputfile.write("\t\draw[|-|,thick] (\\x+\shadow,\y+\shadow) -- (\\x+" +
                  str(int(round(ScaleBarLength))) + "+\shadow,\y+\shadow) " +
                  "node [midway, above] {\SI{" + str(SetScaleBarTo) +
                  "}{\micro\meter}};\n")
-outputfile.write("    \draw[|-|,white,thick] (\\x,\y) -- (\\x+" +
+outputfile.write("\t\draw[|-|,white,thick] (\\x,\y) -- (\\x+" +
                  str(int(round(ScaleBarLength))) + ",\y) node [midway,above]" +
                  " {\SI{" + str(SetScaleBarTo) + "}{\micro\meter}};\n")
-outputfile.write("    %\draw[color=red, anchor=south west] (0," +
+outputfile.write("\t%\draw[color=red, anchor=south west] (0," +
                  str(int(round(Image.shape[0]))) + ") node [fill=white, " +
                  "semitransparent] {Legend} node {Legend};\n")
 outputfile.write("\end{tikzpicture}%\n")
