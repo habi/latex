@@ -1,32 +1,35 @@
 % My answer (http://tex.stackexchange.com/a/204164/828) for http://tex.stackexchange.com/q/204159/828
-\documentclass{article}
+\documentclass[parskip]{scrartcl}
+%\documentclass{article}
+%\setlength\parindent{0pt}
+%\setlength\parskip{10pt}
 
 \usepackage{siunitx}
 \usepackage{booktabs}
 \usepackage{blindtext}
-
-\setlength\parindent{0pt}
+\usepackage{hyperref}
 
 \begin{document}
 
 \blindtext
 
-Volume of the hall \(V = \SI{1500}{\cubic\metre}\).
+Volume of the hall \(V = \SI{1500}{\cubic\metre}\), details can be found in \autoref{tab:hall details}.
 
-\vspace{2cm}
+%\vspace{2cm}
 
-\begin{table}[h]
-    \centering
-    \begin{tabular}{ccS}
-        \toprule
-        Surface & Area (\si{\metre\squared}) & {Coefficient of absorption}\\
-        \midrule
-        ceiling & 140 & 0.8 \\
-        walls & 260 & 0.03 \\
-        floor & 140 & 0.06 \\
-    \bottomrule
-    \end{tabular}
-    \caption{Details of the hall}
+\begin{table}[h!]
+	\centering
+	\caption{Details of the hall}
+	\label{tab:hall details}
+	\begin{tabular}{ccS}
+		\toprule
+		Surface & Area (\si{\metre\squared}) & {Coefficient of absorption}\\
+		\midrule
+		ceiling & 140 & 0.8 \\
+		walls & 260 & 0.03 \\
+		floor & 140 & 0.06 \\
+		\bottomrule
+	\end{tabular}
 \end{table}
 
 \blindtext
