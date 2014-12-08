@@ -1,0 +1,20 @@
+\documentclass[11pt]{letter}
+
+\address{Jane Doe\\Title\\Company\\Phone \#}
+\signature{Jane Doe}
+
+\begin{document}
+
+\newcommand\writeletter[4]{
+    \begin{letter}{#1 #2\\#3\\#4}
+        \opening{Dear #1!}
+        Here's a very long text to #1 at #2 in #3.
+        \closing{With best regards to #3}
+    \end{letter}
+}
+
+\writeletter{Company 1}{5555 N 5th St}{Townsville, CA}{55555}
+\writeletter{Company 2}{5556 N 5th St}{Townsville, CA}{55556}
+\writeletter{Company 3}{5557 N 5th St}{Townsville, CA}{55557}
+
+\end{document}
