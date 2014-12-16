@@ -1,0 +1,26 @@
+% Example on how to use `pdfpages` to combine multiple PDF documents.
+% My answer for http://tex.stackexchange.com/q/218215/828
+
+\documentclass{article}
+
+\usepackage{pdfpages}
+
+\title{Some kind of a notebook}
+\author{Martin}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Here is the introduction to \emph{some kind of notebook}.
+
+\includepdf{somefolder/file1.pdf}
+
+Here's maybe some text inbetween.
+
+\includepdf[pages={2-3}]{anotherfolder/onlyincludepartially.pdf}
+
+And here's some end-notes.
+
+\end{document}
