@@ -3,22 +3,23 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
+%\DisableLigatures{encoding = *, family = * } % Disable ligatures if necessary
 \usepackage{microtype}
 \usepackage[english]{babel}
 \usepackage[backref,url=false]{biblatex}
 	\addbibresource{path/to/library.bib}
 \usepackage{graphicx}
-\usepackage{caption,subfig} % z.B. [font=scriptsize]
+\usepackage{caption}
+\usepackage{subfig}
 \usepackage{siunitx}
 \usepackage{tikz}
-%\DisableLigatures{encoding = *, family = * } % makes for easy copying from the PDF
 \usepackage{gitinfo}
 \usepackage{fancyhdr}
 \usepackage{todonotes}
 \usepackage[strict]{nag}
+\usepackage{listings}
 \usepackage[colorlinks=true]{hyperref}
  
-\newcommand{\imsize}{.5\linewidth}
 \title{Awesome title}
 \subtitle{Even more awesome subtitle| Version \gitAbbrevHash}
 \author{David Haberthür%
@@ -26,14 +27,33 @@
 	 }
 \date{\today}
 
+% Set up headers and footers
 \pagestyle{fancy}
 \fancyfoot{}
 \fancyfoot[RE,LO]{Version \gitAbbrevHash{} from \gitAuthorIsoDate}
 \fancyfoot[RO,LE]{\thepage}
 
+% Define some often used stuff
 \newcommand{\ie}{i.e.\ }
 \newcommand{\eg}{e.g.\ }
 \newcommand{\imsize}{\linewidth}
+
+% Make listing look nice
+\lstset{basicstyle=\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	keywordstyle=\color{blue},
+	stringstyle=\color{orange},
+	commentstyle=\color{red},
+	numbers=left,
+	numbersep=5pt,
+	stepnumber=2,
+	numberstyle=\tiny\color{gray},	
+	rulecolor=\color{black},
+	showspaces=true,
+	title=\lstname,
+	backgroundcolor=\color{gray!10},
+	frame=lines}
 
 \begin{document}
 
