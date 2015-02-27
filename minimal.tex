@@ -7,21 +7,22 @@
 \usepackage{microtype}
 \usepackage[english]{babel}
 \usepackage[backref,url=false]{biblatex}
-	\addbibresource{path/to/library.bib}
+	\addbibresource{/afs/psi.ch/user/h/haberthuer/Documents/library.bib}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subfig}
 \usepackage{siunitx}
 \usepackage{tikz}
-\usepackage{gitinfo}
+\usepackage[markifdirty]{gitinfo2}
 \usepackage{fancyhdr}
 \usepackage{todonotes}
 \usepackage[strict]{nag}
 \usepackage{listings}
+\usepackage{blindtext}
 \usepackage[colorlinks=true]{hyperref}
  
 \title{Awesome title}
-\subtitle{Even more awesome subtitle| Version \gitAbbrevHash}
+\subtitle{Even more awesome subtitle | Version \gitAbbrevHash}
 \author{David Haberthür%
 	\thanks{\href{mailto:email}{email}, phone}%
 	 }
@@ -55,9 +56,14 @@
 	backgroundcolor=\color{gray!10},
 	frame=lines}
 
+% redefine git footer (if dirty)
+\renewcommand{\gitMark}{\gitBranch @\gitAbbrevHash\ commited on \gitAuthorIsoDate}
+
 \begin{document}
 
 \maketitle
+
+\blinddocument
 
 \printbibliography
 
