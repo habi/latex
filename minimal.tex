@@ -1,47 +1,46 @@
-% My general-use, minimal \LaTeX document, from which I normally start
-\documentclass[paper=a4,DIV=calc,twoside]{scrartcl}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage[T1]{fontenc}
-%\DisableLigatures{encoding = *, family = * } % Disable ligatures if necessary
-\usepackage{microtype}
-\usepackage[english]{babel}
-\usepackage[backref,url=false]{biblatex}
-	\addbibresource{/afs/psi.ch/user/h/haberthuer/Documents/library.bib}
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{subfig}
-\usepackage{siunitx}
-\usepackage{tikz}
-\usepackage[markifdirty]{gitinfo2}
-\usepackage{fancyhdr}
-\usepackage{todonotes}
-\usepackage[strict]{nag}
-\usepackage{listings}
-\usepackage{blindtext}
-\usepackage[colorlinks=true]{hyperref}
- 
-\title{Awesome title}
-\subtitle{Even more awesome subtitle | Version \gitAbbrevHash}
-\author{David Haberthür%
-	\thanks{\href{mailto:email}{email}, phone}%
-	 }
-\date{\today}
+% My general-use, fairly minimal \LaTeX document, from which I normally start
+\documentclass[paper=a4,twoside=true,DIV=calc]{scrartcl}
+\usepackage[utf8]{inputenc}				% let me write my name properly
+\usepackage{lmodern}					% use Latin Modern Family of Fonts
+\usepackage[T1]{fontenc}				% properly encode western european fonts
+\usepackage{microtype}					% refine typograpy
+\usepackage[automark]{scrlayer-scrpage}			% use this instead of deprecated fancyhdr
+\usepackage[english]{babel}				% make language switching easy
+\usepackage[backend=biber, natbib=true, backref=true, url=false]{biblatex}	% modern bibliography
+	\addbibresource{/afs/psi.ch/user/h/haberthuer/Documents/library.bib}	% from this file kept in Mendeley
+\usepackage{graphicx}					% we generally have figures
+\usepackage{subfig}					% and subfigres
+\usepackage[list-units=single,detect-all]{siunitx}	% use SI units
+\usepackage{textcomp} 					% Get rid of warning if using \micro with siunitx, as per http://tex.stackexchange.com/a/74673/828
+\usepackage{booktabs}					% nice tables
+\usepackage{todonotes}					% mark stuff do to later with \todo{stuff\ldots}
+\usepackage{tikz}					% we like to draw
+\usepackage{pgfplots}					% we like nice plots
+	\pgfplotsset{compat=newest}			
+	\usepgfplotslibrary{colorbrewer}		% with proper colors
+\usepackage[markifdirty, markifdraft]{gitinfo2} 	% use git information
+\usepackage{csquotes}					% make quoting stuff easy
+\usepackage{listings}					% use nice listings
+\usepackage{sidenotes}					% we prefer side- to footnotes
+\usepackage{blindtext}					% we don't use 'blindtext' in general, but it makes this document nice
+\usepackage[colorlinks=true]{hyperref}			% (colored) links in documents are nice
 
-% Set up headers and footers
-\pagestyle{fancy}
-\fancyfoot{}
-\fancyfoot[RE,LO]{Version \gitAbbrevHash{} from \gitAuthorIsoDate}
-\fancyfoot[RO,LE]{\thepage}
+% Git stuff
+\renewcommand{\gitMark}{\gitBranch @\gitAbbrevHash\ committed on \gitAuthorIsoDate} % note at page bottom if document is dirty or in draft mode
+\ifoot{Version \gitAbbrevHash} % Git hash in inner footer from scrlayer-scrpage
 
-% Define some often used stuff
-\newcommand{\ie}{i.e.\ }
+% Helpers
+\newcommand{\imsize}{\linewidth}i		 	% general figure size
+\newcommand{\subfigureautorefname}{\figureautorefname}	% make it possible to use \autoref{label} with subfigures
+\newcommand{\ie}{i.e.\ }				% simplify often used abbreviation
 \newcommand{\eg}{e.g.\ }
-\newcommand{\imsize}{\linewidth}
+% Scalebar stuff, needed when using https://github.com/habi/latex/blob/master/draw_a_scalebar.py
+\newlength\imagewidth
+\newlength\imagescale
 
-% Make listing look nice
+%Configure listings
 \lstset{basicstyle=\footnotesize,
-	breakatwhitespace=false,
+	breakatwhitespace=true,
 	breaklines=true,
 	keywordstyle=\color{blue},
 	stringstyle=\color{orange},
@@ -51,13 +50,21 @@
 	stepnumber=2,
 	numberstyle=\tiny\color{gray},	
 	rulecolor=\color{black},
-	showspaces=true,
+	showspaces=false,
 	title=\lstname,
 	backgroundcolor=\color{gray!10},
 	frame=lines}
 
-% redefine git footer (if dirty)
-\renewcommand{\gitMark}{\gitBranch @\gitAbbrevHash\ commited on \gitAuthorIsoDate}
+\title{Awesome document}
+\subtitle{Version \gitAbbrevHash}
+\author{David Haberthür%
+	\thanks{\href{mailto:user@example.com}{user@example.com}, +41 12 345 67 89}%
+	\and%
+	Someone else%
+	}
+\date{\today}
+
+\recalctypearea	% recalculate type area if we did something funky with fonts
 
 \begin{document}
 
