@@ -153,6 +153,7 @@ outputfile = open(OutputFile, "w")
 outputfile.write("\documentclass{article}\n")
 outputfile.write("\usepackage{graphicx}\n")
 outputfile.write("\usepackage{tikz}\n")
+outputfile.write("\t\usetikzlibrary{spy}\n")
 outputfile.write("\usepackage{siunitx}\n")
 outputfile.write("\usepackage[graphics,tightpage,active]{preview}\n")
 outputfile.write("\t\PreviewEnvironment{tikzpicture}\n")
@@ -172,16 +173,27 @@ outputfile.write("\def\y{" + str(int(round(Image.shape[0] * 0.9))) +
                  "}% scalebar-y at 90% of image height of " +
                  str(Image.shape[0]) + "px = " +
                  str(int(round(Image.shape[0] * 0.9))) + "\n")
-outputfile.write("\def\shadow{4}% shadow parameter for scalebar\n")
-outputfile.write("\\begin{tikzpicture}[x=\imagescale,y=-\imagescale]\n")
-outputfile.write("\t\clip (0,0) rectangle (" + str(Image.shape[1]) + "," +
+outputfile.write("\def\mag{4}    % magnification of inset\n")
+outputfile.write("\def\size{75}  % size of inset\n")
+outputfile.write("\def\shadow{4} % shadow parameter for scalebar\n")
+outputfile.write("\\begin{tikzpicture}[x=\imagescale,y=-\imagescale, spy " +
+                 "using outlines={rectangle, magnification=\mag, " +
+                 "size=\size, connect spies}]\n")
+outputfile.write("\t\\begin{scope}\n")
+outputfile.write("\t\t\clip (0,0) rectangle (" + str(Image.shape[1]) + "," +
                  str(Image.shape[0]) + ");\n")
-outputfile.write("\t\\node[anchor=north west, inner sep=0pt, outer " +
+outputfile.write("\t\t%\clip (" + str(Image.shape[1]/2) + "," +
+                 str(Image.shape[0] / 2) + ") circle (" +
+                 str(Image.shape[0] / 2) + ");\n")
+outputfile.write("\t\t\\node[anchor=north west, inner sep=0pt, outer " +
                  "sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{" +
-                 str(os.path.join(os.path.split(options.Image)[0],
-                     '{{' +
+                 str(os.path.join(os.path.split(options.Image)[0], '{{' +
                      os.path.splitext(os.path.basename(options.Image))[0]) +
                      '}}') + "}};\n")
+outputfile.write("\t\\end{scope}\n")
+outputfile.write("\t%\spy [red] on (" + str(Image.shape[1] - 300) + "," +
+                 str(Image.shape[0] - 300) +
+                 ") in node at (0,0) [anchor=north west];\n")
 outputfile.write("\t% " + str(int(round(ChosenLength))) + "px = " +
                  str(Scale) + "mm > " + str(ItemLength) + "px = " +
                  str(int(round(UnitLength))) + "um > " +
