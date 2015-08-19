@@ -1,0 +1,29 @@
+% Answer for http://tex.stackexchange.com/a/262173/828
+
+\documentclass{article}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\begin{document}
+
+\lipsum[1]
+
+\begin{table}[h]
+    \centering
+    \caption{Selected Ebola Epidemic Compartmental Models, Analyses and Problem Formulations with References}
+    \small
+    \noindent\makebox[\textwidth]{%
+        \begin{tabularx}{1.4\linewidth}{XlXXXl}
+            \toprule
+            Compartmental\newline Model & Analysis & Problem\newline Formulation & Objective & Control\newline Intervention & Reference \\
+            \midrule
+            SEIT	& Sensitivity	& Differential	& Evaluate various intervention strategies              		& Vaccination & [1] \\
+                     	&			&				& Determine model parameters by least square method	&\\
+        \end{tabularx}
+    }
+\end{table}
+
+\lipsum[1]
+
+\end{document}
