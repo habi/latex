@@ -1,0 +1,15 @@
+\documentclass{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+	\node (f) at (0,0) {F};
+	\node (d) at (1,1) {D};
+	\node (k) at (2,0) {K};
+	\node (m) at (1,-1) {M};
+	\draw (f) -- (d) -- (k) --(m) -- (f);
+\end{tikzpicture}
+
+\end{document}
