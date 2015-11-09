@@ -187,7 +187,8 @@ outputfile.write("\t\t%\clip (" + str(Image.shape[1]/2) + "," +
                  str(Image.shape[0] / 2) + ");\n")
 outputfile.write("\t\t\\node[anchor=north west, inner sep=0pt, outer " +
                  "sep=0pt] at (0,0) {\includegraphics[width=\imagewidth]{" +
-                 str(os.path.join(os.path.split(options.Image)[0], '{{' +
+                 str(os.path.join(os.path.split(os.path.abspath(
+                     options.Image))[0], '{{' +
                      os.path.splitext(os.path.basename(options.Image))[0]) +
                      '}}') + "}};\n")
 outputfile.write("\t\\end{scope}\n")
