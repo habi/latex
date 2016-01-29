@@ -1,0 +1,39 @@
+% Answer for http://tex.stackexchange.com/a/290027/828
+% *Entirely* based on http://www.texample.net/tikz/examples/more-tikz-timing-examples/ where (most probably) the original poster copied the code wrongly.
+\documentclass[convert]{standalone}
+
+\usepackage{tikz-timing}
+\usetikztiminglibrary[new={char=Q,reset char=R}]{counters}
+
+\begin{document}
+
+\begin{tikztimingtable}
+    CPOL =0 & LL 15{ T} LL \\
+    CPOL =1 & HH 15{ T} HH \\
+            & H 17L H \\
+    \\
+    Cycle \# & U R 8{2 Q} 2U \\
+    MISO & D{z} R 8{2 Q} 2D{z} \\
+    MOSI & D{z} R 8{2 Q} 2D{z} \\
+    \\
+    Cycle \# & UU R 8{2 Q} U \\
+    MISO & D{z}U R 8{2 Q} D{z} \\
+    MOSI & D{z}U R 8{2 Q} D{z} \\
+    \extracode
+    % Add vertical lines in two colors
+    \begin{pgfonlayer}{background}
+        \begin{scope}[semitransparent,semithick]
+            \vertlines[red]{2.1,4.1,...,17.1}
+            \vertlines[blue]{3.1,5.1,...,17.1}
+        \end{scope}
+    \end{pgfonlayer}
+    % Add big group labels
+    \begin{scope}[font =\sffamily \Large ,shift={(-6em,-0.5)},anchor=east]
+        \node at (0,0){SCK};
+        \node at (0,-3){SS};
+        \node at (1ex,-9){CPHA=0}; 
+        \node at (1ex,-17){CPHA =1};
+        \end{scope}
+\end{tikztimingtable}
+
+\end{document}
