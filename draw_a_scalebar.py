@@ -7,17 +7,18 @@ The script needs an image and a pixel size as input, then either uses the full
 width of the image or a user-defined length (also as input) and calculates all
 the necessary values to generate a LaTeX-file as output.
 Said LaTeX-file is then compiled with "latexmk" so that - after running the
-script - you get an image_scalebar.tex for further editing and and
-image_scalebar.pdf for use in a talk or so.
+script - you get an image_scalebar.tex for further editing and an
+image_scalebar.pdf as well as image_scalebar.png for use in a talk.
 """
 
 from optparse import OptionParser
-from pylab import *
+import numpy as np
+import matplotlib.pyplot as plt
 import os
 import subprocess
 
-# Use Pythons Optionparser to define and read the options, and also
-# give some help to the user
+# Use Pythons Optionparser to define and read the options, and also give some
+# help to the user
 parser = OptionParser()
 usage = "usage: %prog [options] arg"
 parser.add_option("-i", "--image", dest="Image",
@@ -44,57 +45,57 @@ parser.add_option("-f", "--fullscale", dest="fullscale",
 # Show help if no parameters are given
 if options.Image is None:
     parser.print_help()
-    print "Example:"
-    print "The command below makes a 500 um long scalebar on a 2D image",\
+    print("Example:")
+    print("The command below makes a 500 um long scalebar on a 2D image",\
         "'rec.png', which is 1024 x 1014 pixels big (with 2.8 um pixel ",\
-        "size):"
-    print ""
-    print sys.argv[0], "-i /sls/X02DA/data/e13960/test.jpg -p 2.8 -f"
-    print ""
-    print "The command below makes a 500 um long scalebar on a test-image",\
+        "size):")
+    print()
+    print(sys.argv[0], "-i /sls/X02DA/data/e13960/test.jpg -p 2.8 -f")
+    print()
+    print("The command below makes a 500 um long scalebar on a test-image",\
         "'3d.jpg' from which you know that two features are 2170 px apart ",\
-        "(650 nm px size). The script asks you to click the two points."
-    print ""
-    print sys.argv[0], "-i /sls/X02DA/data/e13960/test.jpg -p 0.65 -l 2170"
-    print ""
+        "(650 nm px size). The script asks you to click the two points.")
+    print()
+    print(sys.argv[0], "-i /sls/X02DA/data/e13960/test.jpg -p 0.65 -l 2170")
+    print()
     sys.exit(1)
 
 # Warn user if options are missing or something else is wrong
 if not os.path.exists(options.Image):
-    print "I cannot find", options.Image, ", please try again."
+    print("I cannot find", options.Image, ", please try again.")
     sys.exit(1)
 
 if options.Pixelsize is None:
-    print "You need to enter a pixel size! Please enter your command as this"
-    print " ".join(sys.argv), "-p some_micrometers"
+    print("You need to enter a pixel size! Please enter your command as this")
+    print(" ".join(sys.argv), "-p some_micrometers")
     sys.exit(1)
 
 if options.Scalebarlength:
-    # Set fullscale to Flase if user wants to define a length himself
+    # Set fullscale to False if user wants to define a length himself
     options.fullscale = False
 
 # Hey ho, let's go
-print 80 * "-"
+print(80 * "-")
 
 # Display image to user
 Image = plt.imread(options.Image)
 plt.imshow(Image)
-plt.axis([0, Image.shape[1], 0, Image.shape[0]])
+plt.axis('image')
 
 # Either let user choose a set length or use the full scale of the image
 if options.fullscale:
-    print "Using full size of image (" +\
+    print("Using full size of image (" +\
         str(Image.shape[1]), "x",\
         str(Image.shape[0]), "px @" + \
-        str(options.Pixelsize), "um) to calculate scalebar"
+        str(options.Pixelsize), "um) to calculate scalebar")
     StartPoint = [(0, Image.shape[0] / 2)]
     EndPoint = [(Image.shape[1], Image.shape[0] / 2)]
 else:
-    print
-    print "Please click on two points", options.Scalebarlength, "px (@",\
+    print()
+    print("Please click on two points", options.Scalebarlength, "px (@",\
         options.Pixelsize, "um) apart, i.e. the length you chose will",\
-        "be", str(options.Scalebarlength * options.Pixelsize / 1000), "mm"
-    print
+        "be", str(options.Scalebarlength * options.Pixelsize / 1000), "mm")
+    print()
     plt.title(options.Image + "\nClick on start point of " +
               str(options.Scalebarlength) + " px long (" +
               str(options.Scalebarlength * options.Pixelsize / 1000) +
@@ -110,7 +111,7 @@ else:
     plt.draw()
     EndPoint = ginput(1)
 
-# Plot the length we"re using to calculate
+# Plot the length we are using to calculate
 StartPoint = StartPoint[0]
 EndPoint = EndPoint[0]
 line = [StartPoint, EndPoint]
@@ -119,7 +120,7 @@ plt.plot(EndPoint[0], EndPoint[1], marker="o", color="r")
 plt.plot([StartPoint[0], EndPoint[0]], [StartPoint[1], EndPoint[1]])
 plt.axis([0, Image.shape[1], 0, Image.shape[0]])
 
-# Calculate the stuff we need to draw a nice scalebar and update figure
+# Calculate the stuff we need for drawing a nice scalebar and update the figure
 if options.fullscale:
     options.Scalebarlength = Image.shape[1]
 plt.title(options.Image + "\nThis line is " + str(options.Scalebarlength) +
@@ -137,26 +138,25 @@ UnitLength = Scale / ChosenLength * ItemLength * 1000
 ScaleBarLength = ItemLength / UnitLength * SetScaleBarTo
 
 # Inform the user
-print "The chosen length of", int(round(ChosenLength)), "px corresponds to",\
-    Scale, "mm."
-print ItemLength, "px are thus", int(round(UnitLength)), "um"
-print int(round(ScaleBarLength)), "px are thus", SetScaleBarTo, "um and"
-print int(round(ScaleBarLength / (SetScaleBarTo / 100))), "px are thus 100 um"
+print("The chosen length of", int(round(ChosenLength)), "px corresponds to",\
+    Scale, "mm.")
+print(ItemLength, "px are thus", int(round(UnitLength)), "um")
+print(int(round(ScaleBarLength)), "px are thus", SetScaleBarTo, "um and")
+print(int(round(ScaleBarLength / (SetScaleBarTo / 100))), "px are thus 100 um")
 
 # Write LaTeX-file
-print 80 * "-"
+print(80 * "-")
 OutputFile = os.path.join(os.getcwd(),
                           os.path.splitext(os.path.basename(options.Image))
                           [0] + "_scalebar.tex")
-print "writing LaTeX-code to", OutputFile
+print("writing LaTeX-code to", OutputFile)
 outputfile = open(OutputFile, "w")
-outputfile.write("\documentclass{article}\n")
-outputfile.write("\usepackage{graphicx}\n")
-outputfile.write("\usepackage{tikz}\n")
-outputfile.write("\t\usetikzlibrary{spy}\n")
-outputfile.write("\usepackage{siunitx}\n")
-outputfile.write("\usepackage[graphics,tightpage,active]{preview}\n")
-outputfile.write("\t\PreviewEnvironment{tikzpicture}\n")
+# PDF and PNG output as per http://tex.stackexchange.com/a/11880/828
+outputfile.write("\\documentclass[convert]{standalone}\n")
+outputfile.write("\\usepackage{graphicx}\n")
+outputfile.write("\\usepackage{tikz}\n")
+outputfile.write("\t\\usetikzlibrary{spy}\n")
+outputfile.write("\\usepackage{siunitx}\n")
 outputfile.write("\\newcommand{\imsize}{\linewidth}\n")
 outputfile.write("\\newlength\imagewidth % needed for scalebars\n")
 outputfile.write("\\newlength\imagescale % ditto\n")
@@ -225,22 +225,28 @@ outputfile.write("%-------------\n")
 outputfile.write("\end{document}%\n")
 outputfile.close()
 
+# Show/Update figure
+plt.pause(0.001)
+plt.draw()
+
 # Compile LaTeX-file and cleanup afterwards
 nirvana = open(os.devnull, "w")
-print "compiling", OutputFile
-# compile even with errors
-subprocess.call(['latexmk', '-pdf', '-silent', OutputFile], stdout=nirvana)
+print("compiling", OutputFile)
+# Compile file with latexmk.
+# This gives us a .PNG, .PDF and an error message, which we disregard
+subprocess.call(['latexmk', '-pdf', '-f', '-silent',
+                 '-latexoption=--shell-escape', OutputFile], stdout=nirvana)
 # cleanup after compilation
-print "cleaning up"
+print("cleaning up")
 subprocess.call(['latexmk', '-c', OutputFile], stdout=nirvana)
 nirvana.close()
 
 # Inform the user what has been going on and make sure we show image
-print 80 * "-"
-print "You now have two files (" + OutputFile + " and .../" +\
-    os.path.basename(OutputFile)[:-3] + "pdf)."
-print "The .tex-file is for further editing and the .pdf file can be used as "\
-    "is in a PowerPoint or Keynote slide..."
-plt.show()
+print(80 * "-")
+print("You now have three files (" + OutputFile + " and .../" +\
+    os.path.basename(OutputFile)[:-3] + "pdf and .png).")
+print("The .tex-file is for further editing and the two other files can be "\
+    "used as is a PowerPoint or Keynote slide...")
 
-exit()
+# Keep the figure open
+plt.show()
