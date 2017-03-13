@@ -100,16 +100,16 @@ else:
               str(options.Scalebarlength) + " px long (" +
               str(options.Scalebarlength * options.Pixelsize / 1000) +
               " mm) line")
-    StartPoint = ginput(1)
+    StartPoint = plt.ginput(1)
     plt.plot(StartPoint[0][0], StartPoint[0][1], marker="o", color="g")
-    plt.axis([0, Image.shape[1], 0, Image.shape[0]])
+    plt.axis('image')
     plt.draw()
     plt.title(options.Image + "\nClick on end point of " +
               str(options.Scalebarlength) + " px long (" +
               str(options.Scalebarlength * options.Pixelsize / 1000) +
               " mm) line")
     plt.draw()
-    EndPoint = ginput(1)
+    EndPoint = plt.ginput(1)
 
 # Plot the length we are using to calculate
 StartPoint = StartPoint[0]
@@ -118,7 +118,7 @@ line = [StartPoint, EndPoint]
 plt.plot(StartPoint[0], StartPoint[1], marker="o", color="g")
 plt.plot(EndPoint[0], EndPoint[1], marker="o", color="r")
 plt.plot([StartPoint[0], EndPoint[0]], [StartPoint[1], EndPoint[1]])
-plt.axis([0, Image.shape[1], 0, Image.shape[0]])
+plt.axis('image')
 
 # Calculate the stuff we need for drawing a nice scalebar and update the figure
 if options.fullscale:
