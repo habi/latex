@@ -1,16 +1,13 @@
 \documentclass{report}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage{graphicx}
-\usepackage[numbers,square,sectionbib]{natbib}
-\usepackage{chapterbib}
-\usepackage{lipsum}
-\usepackage{dtklogos}
-\usepackage{listings}
-\usepackage{graphicx}
-\usepackage{microtype}
-\usepackage{hyperref}
+\usepackage[T1]{fontenc} % for my name with umlaut
+\usepackage[utf8]{inputenc} % for my name with umlaut
+\usepackage[numbers,square,sectionbib]{natbib} % for the bibliography
+\usepackage{chapterbib} % for the bibliography
+\usepackage{lipsum} % for the dummy text
+\usepackage{hologo} % fot bibtex logo
+\usepackage{listings} % for code listing
+\usepackage{menukeys} % for file path
+\usepackage{hyperref} % for URLs
 
 \lstset{basicstyle=\footnotesize,
 	breakatwhitespace=false,
@@ -19,11 +16,10 @@
 	numbersep=5pt,
 	stepnumber=2,
 	showspaces=true,
-	title=\lstname,       
-	frame=single,
-}
+	title=\lstname,
+	frame=single}
 
-\title{Chapterbib}
+\title{A self-contained \emph{chapterbib} example}
 \author{David Haberthür}
 \date{\today}
 

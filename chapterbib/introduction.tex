@@ -1,28 +1,21 @@
 %!TeX root = main.tex
 \chapter{Introduction}
-To make this document work, you have to supply your own bibliography file in
-each chapter (change {libraby.bib} on the last line to your \BibTeX-file) and
-change the \verb+\cite+-commands to keys present in your bibliography.
+The document here uses the an example bibliography (\directory{/usr/share/texlive/texmf-dist/bibtex/bib/base/xampl.bib})\footnote{At least that's where the file is on Ubuntu 16.04}, based on \href{https://tex.stackexchange.com/a/57599/828}{this tex.SE} question to show how to make a bibliography for each chapter of a big document.
 
-Then 
+To typeset it
 \begin{itemize}
-\item run \verb+pdflatex+ on the main file
-\item run \BibTeX\ on each of the \verb+.aux+ files generated for each chapter.
-\item run \verb+pdflatex+ on the main file
-\item run \verb+pdflatex+ on the main file
+	\item run \verb+pdflatex+ on the main file
+	\item run \hologo{BibTeX} on each of the \verb+.aux+ files generated for each chapter.
+	\item run \verb+pdflatex+ on the main file
+	\item run \verb+pdflatex+ on the main file
 \end{itemize}
 
-You should be able to achieve all of the points above with the tiny bash script
-shown below, which does \verb+pdftex+ the main file a sufficient amount of times
-and calls \BibTeX\ for each of the \verb+.aux+ files found in the directory it
-is run in between those calls.
+You should achieve the same result with the tiny bash script below, which \verb+pdftex+es the main file a sufficient amount of times and calls \hologo{BibTeX} for each of the \verb+.aux+ files inbetween those calls.
 
 \lstinputlisting[language=bash]{compilationscript.bash}
 
-You can enter these commands one after one in your terminal, or just call
-\verb+bash compilationscript.bash+ in your terminal if you're using some kind of
-UNIX system.
+You can enter these commands one after one in your terminal, or just call \verb+bash compilationscript.bash+ in your terminal if you're using some kind of UNIX system.
 
-\cite{Author2013}
+And here is a very important citation~\cite{article-full}, which is what this is all about\ldots
 \bibliographystyle{plainnat}
-\bibliography{library.bib}
+\bibliography{xampl}
