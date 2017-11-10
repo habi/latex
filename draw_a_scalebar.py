@@ -173,9 +173,9 @@ outputfile.write("\def\y{" + str(int(round(Image.shape[0] * 0.9))) +
                  "}% scalebar-y at 90% of image height of " +
                  str(Image.shape[0]) + "px = " +
                  str(int(round(Image.shape[0] * 0.9))) + "\n")
-outputfile.write("\def\mag{4}    % magnification of inset\n")
-outputfile.write("\def\size{75}  % size of inset\n")
-outputfile.write("\def\shadow{4} % shadow parameter for scalebar\n")
+outputfile.write("\def\mag{4}% magnification of inset\n")
+outputfile.write("\def\size{75}% size of inset\n")
+outputfile.write("\def\shadow{4}% shadow parameter for scalebar\n")
 outputfile.write("\\begin{tikzpicture}[x=\imagescale,y=-\imagescale, spy " +
                  "using outlines={rectangle, magnification=\mag, " +
                  "size=\size, connect spies}]\n")
