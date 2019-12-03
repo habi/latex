@@ -43,7 +43,7 @@ parser.add_option("-f", "--fullscale", dest="fullscale",
                   " bar manually. Makes the '-l' entry obsolete")
 parser.add_option("-n", "--nocompile", dest="nocompile",
                   default=0,
-                  action="store_false",
+                  action="store_true",
                   help="Do not compile the .tex file at the end, just "
                   "generate it")
 (options, args) = parser.parse_args()
