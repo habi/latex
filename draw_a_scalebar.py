@@ -16,6 +16,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 import subprocess
+import sys
 
 # Use Pythons Optionparser to define and read the options, and also give some
 # help to the user
@@ -40,6 +41,11 @@ parser.add_option("-f", "--fullscale", dest="fullscale",
                   action="store_true",
                   help="Use the full image for scaling, do not define a scale "
                   " bar manually. Makes the '-l' entry obsolete")
+parser.add_option("-n", "--nocompile", dest="nocompile",
+                  default=0,
+                  action="store_true",
+                  help="Do not compile the .tex file at the end, just "
+                  "generate it")
 (options, args) = parser.parse_args()
 
 # Show help if no parameters are given
@@ -140,9 +146,9 @@ ScaleBarLength = ItemLength / UnitLength * SetScaleBarTo
 # Inform the user
 print("The chosen length of", int(round(ChosenLength)), "px corresponds to",\
     Scale, "mm.")
-print(ItemLength, "px are thus", int(round(UnitLength)), "um")
-print(int(round(ScaleBarLength)), "px are thus", SetScaleBarTo, "um and")
-print(int(round(ScaleBarLength / (SetScaleBarTo / 100))), "px are thus 100 um")
+print("%s px are thus %0.3f um" % (ItemLength, UnitLength))
+print("%0.3f px are thus %s um and" % (ScaleBarLength, SetScaleBarTo))
+print("%0.3f px are thus 100 um" % (ScaleBarLength / (SetScaleBarTo / 100)))
 
 # Write LaTeX-file
 print(80 * "-")
@@ -195,12 +201,12 @@ outputfile.write("\t\\end{scope}\n")
 outputfile.write("\t%\spy [red] on (" + str(Image.shape[1] - 300) + "," +
                  str(Image.shape[0] - 300) +
                  ") in node at (0,0) [anchor=north west];\n")
-outputfile.write("\t% " + str(int(round(ChosenLength))) + "px = " +
-                 str(Scale) + "mm > " + str(ItemLength) + "px = " +
-                 str(int(round(UnitLength))) + "um > " +
-                 str(int(round(ScaleBarLength))) + "px = " +
+outputfile.write("\t% " + "%0.3f" % ChosenLength + "px = " +
+                 str(Scale) + "mm -> " + str(ItemLength) + "px = " +
+                 "%0.3f" % UnitLength + "um -> " +
+                 "%0.3f" % ScaleBarLength + "px = " +
                  str(SetScaleBarTo) + "um, " +
-                 str(int(round(ScaleBarLength / (SetScaleBarTo / 100)))) +
+                 "%0.3f" % (ScaleBarLength / (SetScaleBarTo / 100)) +
                  "px = 100um\n")
 outputfile.write("\t%\draw[|-|,blue,thick] (" +
                  str(int(round(StartPoint[0]))) + "," +
@@ -210,12 +216,12 @@ outputfile.write("\t%\draw[|-|,blue,thick] (" +
                  "above,fill=white,semitransparent,text opacity=1] {\SI{" +
                  str(Scale) + "}{\milli\meter} (" +
                  str(int(round(ChosenLength))) + "px) TEMPORARY!};\n")
-outputfile.write("\t\draw[|-|,thick] (\\x+\shadow,\y+\shadow) -- (\\x+" +
-                 str(int(round(ScaleBarLength))) + "+\shadow,\y+\shadow) " +
+outputfile.write("\t\draw[|-|,thick] (\\x+\shadow,\y+\shadow) -- (\\x+%0.3f" % ScaleBarLength +
+				 "+\shadow,\y+\shadow) " +
                  "node [midway, above] {\SI{" + str(SetScaleBarTo) +
                  "}{\micro\meter}};\n")
-outputfile.write("\t\draw[|-|,white,thick] (\\x,\y) -- (\\x+" +
-                 str(int(round(ScaleBarLength))) + ",\y) node [midway,above]" +
+outputfile.write("\t\draw[|-|,white,thick] (\\x,\y) -- (\\x+%0.3f" % ScaleBarLength +
+				 ",\y) node [midway,above]" +
                  " {\SI{" + str(SetScaleBarTo) + "}{\micro\meter}};\n")
 outputfile.write("\t%\draw[color=red, anchor=south west] (0," +
                  str(int(round(Image.shape[0]))) + ") node [fill=white, " +
@@ -229,24 +235,27 @@ outputfile.close()
 plt.pause(0.001)
 plt.draw()
 
-# Compile LaTeX-file and cleanup afterwards
-nirvana = open(os.devnull, "w")
-print("compiling", OutputFile)
-# Compile file with latexmk.
-# This gives us a .PNG, .PDF and an error message, which we disregard
-subprocess.call(['latexmk', '-pdf', '-f', '-silent',
-                 '-latexoption=--shell-escape', OutputFile], stdout=nirvana)
-# cleanup after compilation
-print("cleaning up")
-subprocess.call(['latexmk', '-c', OutputFile], stdout=nirvana)
-nirvana.close()
-
-# Inform the user what has been going on and make sure we show image
 print(80 * "-")
-print("You now have three files (" + OutputFile + " and .../" +\
-    os.path.basename(OutputFile)[:-3] + "pdf and .png).")
-print("The .tex-file is for further editing and the two other files can be "\
-    "used as is a PowerPoint or Keynote slide...")
+if options.nocompile:
+	# Inform the user what has been going on and make sure we show image
+	print("You now have a tex file (" + OutputFile + "for further editing")
+else:
+	# Compile LaTeX-file and cleanup afterwards
+	nirvana = open(os.devnull, "w")
+	print("compiling", OutputFile)
+	# Compile file with latexmk.
+	# This gives us a .PNG, .PDF and an error message, which we disregard
+	subprocess.call(['latexmk', '-pdf', '-f', '-silent',
+		             '-latexoption=--shell-escape', OutputFile], stdout=nirvana)
+	# cleanup after compilation
+	print("cleaning up")
+	subprocess.call(['latexmk', '-c', OutputFile], stdout=nirvana)
+	nirvana.close()
+	# Inform the user what has been going on
+	print("You now have three files (" + OutputFile + " and .../" +\
+	    os.path.basename(OutputFile)[:-3] + "pdf and .png).")
+	print("The .tex-file is for further editing and the two other files can be "\
+	    "used as is in a PowerPoint or Keynote slide...")
 
 # Keep the figure open
 plt.show()
