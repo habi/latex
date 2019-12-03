@@ -158,16 +158,19 @@ OutputFile = os.path.join(os.getcwd(),
 print("writing LaTeX-code to", OutputFile)
 outputfile = open(OutputFile, "w")
 # PDF and PNG output as per http://tex.stackexchange.com/a/11880/828
-outputfile.write("\\documentclass[convert]{standalone}\n")
-outputfile.write("\\usepackage{graphicx}\n")
-outputfile.write("\\usepackage{tikz}\n")
-outputfile.write("\t\\usetikzlibrary{spy}\n")
-outputfile.write("\\usepackage{siunitx}\n")
-outputfile.write("\\newcommand{\imsize}{\linewidth}\n")
-outputfile.write("\\newlength\imagewidth % needed for scalebars\n")
-outputfile.write("\\newlength\imagescale % ditto\n")
+outputfile.write("\\documentclass[tikz]{standalone}\n")
+outputfile.write("\\usepackage{tikz}\t\t\t% for drawing everything\n")
+outputfile.write("\t\\usetikzlibrary{spy}\t% for zooming\n")
+outputfile.write("\\usepackage{siunitx}\t\t% for nice SI units\n")
+outputfile.write("\\usepackage{shadowtext}\t% for shadowed text on the scalebar\n")
+outputfile.write("\t\\shadowoffset{1pt}\t% ideally the same as on line 13...\n")
+outputfile.write("\t\\shadowcolor{black}\t% ideally the same as on line 13...\n")
+outputfile.write("\\newcommand{\imsize}{\linewidth}% default width of image\n")
+outputfile.write("\\newlength\imagewidth% needed for correct scalebar\n")
+outputfile.write("\\newlength\imagescale% needed for correct scalebar\n")
 outputfile.write("\\begin{document}%\n")
-outputfile.write("%-------------\n")
+outputfile.write("%----------\n")
+outputfile.write("\\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=black, thick}}} % shadowed drawing https://tex.stackexchange.com/a/185853/828\n")
 outputfile.write("\pgfmathsetlength{\imagewidth}{\imsize}%\n")
 outputfile.write("\pgfmathsetlength{\imagescale}{\imagewidth/" +
                  str(Image.shape[1]) + "}%\n")
@@ -181,10 +184,9 @@ outputfile.write("\def\y{" + str(int(round(Image.shape[0] * 0.9))) +
                  str(int(round(Image.shape[0] * 0.9))) + "\n")
 outputfile.write("\def\mag{4}% magnification of inset\n")
 outputfile.write("\def\size{75}% size of inset\n")
-outputfile.write("\def\shadow{4}% shadow parameter for scalebar\n")
-outputfile.write("\\begin{tikzpicture}[x=\imagescale,y=-\imagescale, spy " +
-                 "using outlines={rectangle, magnification=\mag, " +
-                 "size=\size, connect spies}]\n")
+outputfile.write("\\begin{tikzpicture}[x=\imagescale,y=-\imagescale,spy " +
+                 "using outlines={rectangle,magnification=\mag," +
+                 "size=\size,connect spies}]\n")
 outputfile.write("\t\\begin{scope}\n")
 outputfile.write("\t\t\clip (0,0) rectangle (" + str(Image.shape[1]) + "," +
                  str(Image.shape[0]) + ");\n")
@@ -216,18 +218,14 @@ outputfile.write("\t%\draw[|-|,blue,thick] (" +
                  "above,fill=white,semitransparent,text opacity=1] {\SI{" +
                  str(Scale) + "}{\milli\meter} (" +
                  str(int(round(ChosenLength))) + "px) TEMPORARY!};\n")
-outputfile.write("\t\draw[|-|,thick] (\\x+\shadow,\y+\shadow) -- (\\x+%0.3f" % ScaleBarLength +
-				 "+\shadow,\y+\shadow) " +
-                 "node [midway, above] {\SI{" + str(SetScaleBarTo) +
-                 "}{\micro\meter}};\n")
-outputfile.write("\t\draw[|-|,white,thick] (\\x,\y) -- (\\x+%0.3f" % ScaleBarLength +
+outputfile.write("\t\draw[|-|,white,thick,shadowed] (\\x,\y) -- (\\x+%0.3f" % ScaleBarLength +
 				 ",\y) node [midway,above]" +
-                 " {\SI{" + str(SetScaleBarTo) + "}{\micro\meter}};\n")
+                 " {\shadowtext{\SI{" + str(SetScaleBarTo) + "}{\micro\meter}}};\n")
 outputfile.write("\t%\draw[color=red, anchor=south west] (0," +
                  str(int(round(Image.shape[0]))) + ") node [fill=white, " +
                  "semitransparent] {Legend} node {Legend};\n")
 outputfile.write("\end{tikzpicture}%\n")
-outputfile.write("%-------------\n")
+outputfile.write("%----------\n")
 outputfile.write("\end{document}%\n")
 outputfile.close()
 
@@ -238,7 +236,7 @@ plt.draw()
 print(80 * "-")
 if options.nocompile:
 	# Inform the user what has been going on and make sure we show image
-	print("You now have a tex file (" + OutputFile + "for further editing")
+	print("You now have a tex file (" + OutputFile + " for further editing")
 else:
 	# Compile LaTeX-file and cleanup afterwards
 	nirvana = open(os.devnull, "w")
