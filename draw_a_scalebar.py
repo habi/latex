@@ -170,7 +170,7 @@ outputfile.write("\\newlength\imagewidth% needed for correct scalebar\n")
 outputfile.write("\\newlength\imagescale% needed for correct scalebar\n")
 outputfile.write("\\begin{document}%\n")
 outputfile.write("%----------\n")
-outputfile.write("\\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=black, thick}}} % shadowed drawing https://tex.stackexchange.com/a/185853/828\n")
+outputfile.write("\\tikzset{shadowed/.style={preaction={transform canvas={shift={(1pt,-1pt)}},draw=black, thick}}}% shadowed drawing https://tex.stackexchange.com/a/185853/828\n")
 outputfile.write("\pgfmathsetlength{\imagewidth}{\imsize}%\n")
 outputfile.write("\pgfmathsetlength{\imagescale}{\imagewidth/" +
                  str(Image.shape[1]) + "}%\n")
