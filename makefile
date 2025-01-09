@@ -1,4 +1,4 @@
-## Makefile based on http://git.io/GIs6og
+## Makefile based on https://github.com/kjhealy/pandoc-templates/blob/master/examples/starting_from_markdown/Makefile
 
 ## Define standard Markdown extension
 MEXT = md
