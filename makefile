@@ -43,4 +43,4 @@ doc:	clean $(DOC)
 	rename.ul .docx _$(ID).docx *.docx
 
 clean:
-	rm -f *.html *.pdf *.tex *.docx
+	rm *.html *.pdf *.tex *.docx
