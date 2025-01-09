@@ -10,7 +10,7 @@ SRC = $(wildcard *.$(MEXT))
 BIB = /afs/psi.ch/user/h/haberthuer/Documents/library.bib
 
 ## Get last commit hash
-ID := $(shell git log --oneline --no-color | cut -c -6 | head -n 1)
+ID := $(shell git rev-parse --short HEAD)
 
 ## File names
 PDFS=$(SRC:.md=.pdf)
