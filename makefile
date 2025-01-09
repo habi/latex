@@ -7,40 +7,39 @@ MEXT = md
 SRC = $(wildcard *.$(MEXT))
 
 ## Bibliography
-BIB = /afs/psi.ch/user/h/haberthuer/Documents/library.bib
+BIB = /home/habi/P/Documents/library.bib
+
+## Pandoc options to use
+OPTIONS = markdown+simple_tables+table_captions+yaml_metadata_block+smart
 
 ## Get last commit hash
 ID := $(shell git rev-parse --short HEAD)
 
 ## File names
-PDFS=$(SRC:.md=.pdf)
-HTML=$(SRC:.md=.html)
-TEX=$(SRC:.md=.tex)
-DOC=$(SRC:.md=.docx)
+PDFS=$(SRC:.md=.$(ID).pdf)
+HTML=$(SRC:.md=.$(ID).html)
+TEX=$(SRC:.md=.$(ID).tex)
+DOCX=$(SRC:.md=.$(ID).docx)
 
 ## Targets
 all:	$(PDFS) $(HTML) $(TEX) $(DOC)
 
-pdf:	clean $(PDFS)
-html:	clean $(HTML)
-tex:	clean $(TEX)
-doc:	clean $(DOC)
+pdf:	$(PDFS)
+html:	$(HTML)
+tex:	$(TEX)
+doc:	$(DOCX)
 
-%.html:	%.md
-	pandoc -w html5 -s -S --bibliography=$(BIB) -o $@ $<
-	rename.ul .html _$(ID).html *.html
+%.$(ID).html: %.md
+	pandoc -r $(OPTIONS) -w html5 -s --bibliography=$(BIB) -o $@ $<
 
-%.tex:	%.md
-	pandoc -w latex -s -S --bibliography=$(BIB) -o $@ $<
-	rename.ul .tex _$(ID).tex *.tex
+%.$(ID).tex: %.md
+	pandoc -r $(OPTIONS) -w latex -s --bibliography=$(BIB) -o $@ $<
 
-%.pdf:	%.md
-	pandoc -s -S --bibliography=$(BIB) -o $@ $<
-	rename.ul .pdf _$(ID).pdf *.pdf
-
-%.docx:	%.md
-	pandoc -s -S --bibliography=$(BIB) -o $@ $<
-	rename.ul .docx _$(ID).docx *.docx
+%.$(ID).pdf: %.md
+	pandoc -r $(OPTIONS) --bibliography=$(BIB) -o $@ $<
+	
+%.$(ID).docx: %.md
+	pandoc -r $(OPTIONS) --bibliography=$(BIB) -o $@ $<
 
 clean:
 	rm *.html *.pdf *.tex *.docx
